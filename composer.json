@@ -1,0 +1,26 @@
+{
+    "name": "pyjac/naijaemoji",
+    "description": "A Restful API using Slim for NaijaEmoji Service",
+    "keywords": ["emoji","rest","router", "psr7"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "andela-joyebanji",
+            "email": "oyebanji.jacob@andela.com",
+            "role": "Software Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "slim/slim": "^3.1",
+        "slim/php-view": "^2.0",
+        "monolog/monolog": "^1.17",
+        "illuminate/database": "^5.2",
+        "vlucas/phpdotenv": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pyjac\\NaijaEmoji\\" : "src"
+        }
+    }
+}
