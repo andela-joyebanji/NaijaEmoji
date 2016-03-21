@@ -7,8 +7,9 @@ use Pyjac\NaijaEmoji\Model\Keyword;
 use Pyjac\NaijaEmoji\Model\User;
 use Slim\Http\Environment;
 use Slim\Http\Request;
+require_once 'TestDatabasePopulator.php';
 
-class NaijaEmojiApi extends PHPUnit_Framework_TestCase
+class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
 {
     protected $app;
     protected $user;
@@ -16,7 +17,7 @@ class NaijaEmojiApi extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->app = (new App())->get();
-        $this->user = $this->propulateDB();
+        $this->user = TestDatabasePopulator::populate();
     }
 
     public function testGetAllEmojisReturnsOneEmoji()
@@ -54,36 +55,5 @@ class NaijaEmojiApi extends PHPUnit_Framework_TestCase
         $this->assertSame($response->getStatusCode(), 200);
         $this->assertSame($data['name'], 'Suliat');
         $this->assertSame($data['category'], 'sulia');
-    }
-
-    private function propulateDB()
-    {
-        $user = User::firstOrCreate(['username' => 'tester', 'password' => password_hash('test', PASSWORD_DEFAULT), 'role' => 'member']);
-        $emojiData = [
-        'name'     => 'Suliat',
-        'char'     => '__[::]__',
-        'category' => 'sulia',
-        'keywords' => ['suzan', 'suzzy'],
-        ];
-        $category = Category::firstOrCreate(['name' => $emojiData['category']]);
-        $emoji = new Emoji();
-        $emoji->name = $emojiData['name'];
-        $emoji->char = $emojiData['char'];
-        $emoji->category_id = $category->id;
-        $user->emojis()->save($emoji);
-        $keywords = [];
-        foreach ($emojiData['keywords'] as $key => $keyword) {
-            $keyword = trim($keyword);
-                //Skip empty keywords
-            if (!$keyword) {
-                continue;
-            }
-            $keywordModel = Keyword::firstOrCreate(['name' => $keyword]);
-            $keywords[] = $keywordModel->id;
-        }
-
-        $emoji->keywords()->attach($keywords);
-        //Build keywords array and create users emojis
-        return $user;
     }
 }
