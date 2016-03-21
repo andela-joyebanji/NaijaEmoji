@@ -44,6 +44,24 @@ class NaijaEmojiApi extends PHPUnit_Framework_TestCase
         $this->assertSame(count($data), 1);
     }
 
+    public function testGetEmojiReturnsCorrectEmojiWithStatusCodeOf200()
+    {
+        $emoji = $this->user->emojis()->first();
+        $env = Environment::mock(array(
+            'REQUEST_METHOD' => 'GET',
+            'REQUEST_URI' => '/emojis/'.$emoji->id,
+            'PATH_INFO' => '/emojis',
+            ));
+        $req = Request::createFromEnvironment($env);
+        $this->app->getContainer()['request'] = $req;
+
+        $response = $this->app->run(true);
+        $data = json_decode($response->getBody(), true);
+        $this->assertSame($response->getStatusCode(), 200);
+        $this->assertSame($data['name'], 'Suliat');
+        $this->assertSame($data['category'], 'sulia');
+    }
+
     private function propulateDB()
     {
 
