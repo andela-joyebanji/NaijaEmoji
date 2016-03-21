@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Pyjac\NaijaEmoji;
 
@@ -18,7 +18,6 @@ class DatabaseSchema
         self::createKeywordsTable();
         self::createEmojiKeywordsTable();
         self::createBlacklistedTokensTable();
-
     }
 
     private static function createUsersTable()
@@ -29,9 +28,10 @@ class DatabaseSchema
                 $table->string('username');
                 $table->string('role');
                 $table->string('password');
-            });  
+            });
         }
     }
+
     public static function createCategoriesTable()
     {
         if (!Capsule::schema()->hasTable('categories')) {
@@ -41,6 +41,7 @@ class DatabaseSchema
             });
         }
     }
+
     public static function createEmojisTable()
     {
         if (!Capsule::schema()->hasTable('emojis')) {
@@ -54,8 +55,9 @@ class DatabaseSchema
             });
         }
     }
+
     public static function createKeywordsTable()
-    { 
+    {
         if (!Capsule::schema()->hasTable('keywords')) {
             Capsule::schema()->create('keywords', function (Blueprint $table) {
                 $table->increments('id');
@@ -83,9 +85,9 @@ class DatabaseSchema
                 $table->integer('user_id');
                 $table->string('token_jti')->unique();
             });
-        }     
+        }
     }
-    
+
     public static function dropAllTables()
     {
         Capsule::schema()->dropIfExists('users');
