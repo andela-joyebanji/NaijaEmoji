@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Pyjac\NaijaEmoji;
 
@@ -6,20 +6,21 @@ class App
 {
     /**
      * Stores an instance of the Slim application.
+     *
      * @var \Slim\App
      */
     protected $app;
 
-    function __construct()
+    public function __construct()
     {
-        $settings = require __DIR__ . '/../src/settings.php';
+        $settings = require __DIR__.'/../src/settings.php';
         $app = new \Slim\App($settings);
 
         // Set up dependencies
-        require __DIR__ . '/../src/dependencies.php';
+        require __DIR__.'/../src/dependencies.php';
 
         // Register routes
-        require __DIR__ . '/../src/routes.php';
+        require __DIR__.'/../src/routes.php';
 
         $this->app = $app;
         $this->setUpDatabaseManager();
@@ -51,9 +52,10 @@ class App
 
     /**
      * Get an instance of the application.
+     *
      * @return \Slim\App
      */
-    public  function get()
+    public function get()
     {
         return $this->app;
     }
