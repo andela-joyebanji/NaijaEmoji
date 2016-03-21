@@ -44,4 +44,27 @@ final class AuthController
 
         return JWT::encode($token, $appSecret, $jwtAlgorithm);
     }
+
+    public function register($request, $response, $args) {
+        $userData = $request->getParsedBody();
+        
+        if(!$userData || !Helpers::keysExistAndNotEmptyString(["username","password"], $userData)){
+
+             return $response->withJson(["message" => "Username or Password field not provided."],400);
+        }
+
+        $username =$userData["username"];
+        $password = $userData["password"];
+        if(User::where("username", $username)->first()){
+            return $response->withJson(["message" => "Username already exist."],409);
+        }
+
+        $user = new User();
+        $user->username = $username;
+        $user->password = password_hash($password, PASSWORD_DEFAULT);
+        $user->role = "member";
+        $user->save();
+
+        return $response->withJson(["message" => "User successfully created."], 201);
+    }
 }

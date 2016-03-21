@@ -33,6 +33,6 @@ class Helpers
      */
     public static function keyExistAndNotEmptyString($key, $searchData)
     {
-        return !empty($searchData[$key]) || is_string($searchData[$key]) || trim($searchData[$key]);
+        return isset($searchData[$key]) && !empty($searchData[$key]) && is_string($searchData[$key]) && trim($searchData[$key]);
     }
 }

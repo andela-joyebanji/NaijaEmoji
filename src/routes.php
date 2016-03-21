@@ -8,5 +8,6 @@ $app->get('/emojis/{id}', "Pyjac\NaijaEmoji\Controller\EmojisController:getEmoji
 $app->group('/auth', function () {
 
     $this->post('/login', "Pyjac\NaijaEmoji\Controller\AuthController:login");
+    $this->post('/register', "Pyjac\NaijaEmoji\Controller\AuthController:register");
 
 });
