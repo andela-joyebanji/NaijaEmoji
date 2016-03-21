@@ -56,4 +56,36 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         $this->assertSame($data['name'], 'Suliat');
         $this->assertSame($data['category'], 'sulia');
     }
+
+    public function testLoginReturnsTokenWhenValidUsernameAndPasswordIsPassed()
+    {
+        $env = Environment::mock(array(
+            'REQUEST_METHOD' => 'POST',
+            'REQUEST_URI' => '/auth/login',
+            'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+        ));
+        $req = Request::createFromEnvironment($env);
+        $req = $req->withParsedBody(['username' => 'tester','password' => 'test']);
+        $this->app->getContainer()['request'] = $req;
+        $response = $this->app->run(true);
+        $result = json_decode($response->getBody(), true);
+        $this->assertNotNull($result['token']);
+        $this->assertSame($response->getStatusCode(), 200);
+    }
+
+    public function testLoginReturnsStatusCode401WhenInvalidUsernameAndPasswordIsPassed()
+    {
+        $env = Environment::mock(array(
+            'REQUEST_METHOD' => 'POST',
+            'REQUEST_URI' => '/auth/login',
+            'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+        ));
+        $req = Request::createFromEnvironment($env);
+        $req = $req->withParsedBody(['username' => 'tester','password' => 'tes']);
+        $this->app->getContainer()['request'] = $req;
+        $response = $this->app->run(true);
+        $result = json_decode($response->getBody(), true);
+        $this->assertFalse(isset($result['token']));
+        $this->assertSame($response->getStatusCode(), 401);
+    }
 }

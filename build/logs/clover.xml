@@ -1,97 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1458523373">
-  <project timestamp="1458523373">
+<coverage generated="1458524868">
+  <project timestamp="1458524868">
     <package name="Pyjac\NaijaEmoji">
       <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/App.php">
         <class name="App" namespace="Pyjac\NaijaEmoji">
           <metrics methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="21" coveredelements="21"/>
         </class>
-        <line num="14" type="method" name="__construct" crap="1" count="2"/>
-        <line num="16" type="stmt" count="2"/>
-        <line num="17" type="stmt" count="2"/>
-        <line num="20" type="stmt" count="2"/>
-        <line num="23" type="stmt" count="2"/>
-        <line num="25" type="stmt" count="2"/>
-        <line num="26" type="stmt" count="2"/>
-        <line num="27" type="stmt" count="2"/>
-        <line num="28" type="stmt" count="2"/>
-        <line num="33" type="method" name="setUpDatabaseManager" crap="1" count="2"/>
-        <line num="36" type="stmt" count="2"/>
-        <line num="37" type="stmt" count="2"/>
-        <line num="38" type="stmt" count="2"/>
-        <line num="39" type="stmt" count="2"/>
-        <line num="44" type="method" name="setUpDatabaseSchema" crap="2" count="2"/>
-        <line num="46" type="stmt" count="2"/>
-        <line num="47" type="stmt" count="2"/>
-        <line num="48" type="stmt" count="2"/>
-        <line num="51" type="stmt" count="2"/>
-        <line num="58" type="method" name="get" crap="1" count="2"/>
-        <line num="60" type="stmt" count="2"/>
+        <line num="14" type="method" name="__construct" crap="1" count="4"/>
+        <line num="16" type="stmt" count="4"/>
+        <line num="17" type="stmt" count="4"/>
+        <line num="20" type="stmt" count="4"/>
+        <line num="23" type="stmt" count="4"/>
+        <line num="25" type="stmt" count="4"/>
+        <line num="26" type="stmt" count="4"/>
+        <line num="27" type="stmt" count="4"/>
+        <line num="28" type="stmt" count="4"/>
+        <line num="33" type="method" name="setUpDatabaseManager" crap="1" count="4"/>
+        <line num="36" type="stmt" count="4"/>
+        <line num="37" type="stmt" count="4"/>
+        <line num="38" type="stmt" count="4"/>
+        <line num="39" type="stmt" count="4"/>
+        <line num="44" type="method" name="setUpDatabaseSchema" crap="2" count="4"/>
+        <line num="46" type="stmt" count="4"/>
+        <line num="47" type="stmt" count="4"/>
+        <line num="48" type="stmt" count="4"/>
+        <line num="51" type="stmt" count="4"/>
+        <line num="58" type="method" name="get" crap="1" count="4"/>
+        <line num="60" type="stmt" count="4"/>
         <metrics loc="62" ncloc="38" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="17" elements="21" coveredelements="21"/>
       </file>
       <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/DatabaseSchema.php">
         <class name="DatabaseSchema" namespace="Pyjac\NaijaEmoji">
           <metrics methods="9" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="56" coveredstatements="49" elements="65" coveredelements="57"/>
         </class>
-        <line num="13" type="method" name="createTables" crap="1" count="2"/>
-        <line num="15" type="stmt" count="2"/>
-        <line num="16" type="stmt" count="2"/>
-        <line num="17" type="stmt" count="2"/>
-        <line num="18" type="stmt" count="2"/>
-        <line num="19" type="stmt" count="2"/>
-        <line num="20" type="stmt" count="2"/>
-        <line num="21" type="stmt" count="2"/>
-        <line num="23" type="method" name="createUsersTable" crap="2" count="2"/>
-        <line num="25" type="stmt" count="2"/>
-        <line num="27" type="stmt" count="2"/>
-        <line num="28" type="stmt" count="2"/>
-        <line num="29" type="stmt" count="2"/>
-        <line num="30" type="stmt" count="2"/>
-        <line num="31" type="stmt" count="2"/>
-        <line num="32" type="stmt" count="2"/>
-        <line num="33" type="stmt" count="2"/>
-        <line num="35" type="method" name="createCategoriesTable" crap="2" count="2"/>
-        <line num="37" type="stmt" count="2"/>
-        <line num="39" type="stmt" count="2"/>
-        <line num="40" type="stmt" count="2"/>
-        <line num="41" type="stmt" count="2"/>
-        <line num="42" type="stmt" count="2"/>
-        <line num="43" type="stmt" count="2"/>
-        <line num="45" type="method" name="createEmojisTable" crap="2" count="2"/>
-        <line num="47" type="stmt" count="2"/>
-        <line num="49" type="stmt" count="2"/>
-        <line num="50" type="stmt" count="2"/>
-        <line num="51" type="stmt" count="2"/>
-        <line num="52" type="stmt" count="2"/>
-        <line num="53" type="stmt" count="2"/>
-        <line num="54" type="stmt" count="2"/>
-        <line num="55" type="stmt" count="2"/>
-        <line num="56" type="stmt" count="2"/>
-        <line num="57" type="stmt" count="2"/>
-        <line num="59" type="method" name="createKeywordsTable" crap="2" count="2"/>
-        <line num="61" type="stmt" count="2"/>
-        <line num="63" type="stmt" count="2"/>
-        <line num="64" type="stmt" count="2"/>
-        <line num="65" type="stmt" count="2"/>
-        <line num="66" type="stmt" count="2"/>
-        <line num="67" type="stmt" count="2"/>
-        <line num="69" type="method" name="createEmojiKeywordsTable" crap="2" count="2"/>
-        <line num="71" type="stmt" count="2"/>
-        <line num="73" type="stmt" count="2"/>
-        <line num="74" type="stmt" count="2"/>
-        <line num="75" type="stmt" count="2"/>
-        <line num="76" type="stmt" count="2"/>
-        <line num="77" type="stmt" count="2"/>
-        <line num="78" type="stmt" count="2"/>
-        <line num="80" type="method" name="createBlacklistedTokensTable" crap="2" count="2"/>
-        <line num="82" type="stmt" count="2"/>
-        <line num="83" type="method" name="anonymous function" crap="1" count="2"/>
-        <line num="84" type="stmt" count="2"/>
-        <line num="85" type="stmt" count="2"/>
-        <line num="86" type="stmt" count="2"/>
-        <line num="87" type="stmt" count="2"/>
-        <line num="88" type="stmt" count="2"/>
-        <line num="89" type="stmt" count="2"/>
+        <line num="13" type="method" name="createTables" crap="1" count="4"/>
+        <line num="15" type="stmt" count="4"/>
+        <line num="16" type="stmt" count="4"/>
+        <line num="17" type="stmt" count="4"/>
+        <line num="18" type="stmt" count="4"/>
+        <line num="19" type="stmt" count="4"/>
+        <line num="20" type="stmt" count="4"/>
+        <line num="21" type="stmt" count="4"/>
+        <line num="23" type="method" name="createUsersTable" crap="2" count="4"/>
+        <line num="25" type="stmt" count="4"/>
+        <line num="27" type="stmt" count="4"/>
+        <line num="28" type="stmt" count="4"/>
+        <line num="29" type="stmt" count="4"/>
+        <line num="30" type="stmt" count="4"/>
+        <line num="31" type="stmt" count="4"/>
+        <line num="32" type="stmt" count="4"/>
+        <line num="33" type="stmt" count="4"/>
+        <line num="35" type="method" name="createCategoriesTable" crap="2" count="4"/>
+        <line num="37" type="stmt" count="4"/>
+        <line num="39" type="stmt" count="4"/>
+        <line num="40" type="stmt" count="4"/>
+        <line num="41" type="stmt" count="4"/>
+        <line num="42" type="stmt" count="4"/>
+        <line num="43" type="stmt" count="4"/>
+        <line num="45" type="method" name="createEmojisTable" crap="2" count="4"/>
+        <line num="47" type="stmt" count="4"/>
+        <line num="49" type="stmt" count="4"/>
+        <line num="50" type="stmt" count="4"/>
+        <line num="51" type="stmt" count="4"/>
+        <line num="52" type="stmt" count="4"/>
+        <line num="53" type="stmt" count="4"/>
+        <line num="54" type="stmt" count="4"/>
+        <line num="55" type="stmt" count="4"/>
+        <line num="56" type="stmt" count="4"/>
+        <line num="57" type="stmt" count="4"/>
+        <line num="59" type="method" name="createKeywordsTable" crap="2" count="4"/>
+        <line num="61" type="stmt" count="4"/>
+        <line num="63" type="stmt" count="4"/>
+        <line num="64" type="stmt" count="4"/>
+        <line num="65" type="stmt" count="4"/>
+        <line num="66" type="stmt" count="4"/>
+        <line num="67" type="stmt" count="4"/>
+        <line num="69" type="method" name="createEmojiKeywordsTable" crap="2" count="4"/>
+        <line num="71" type="stmt" count="4"/>
+        <line num="73" type="stmt" count="4"/>
+        <line num="74" type="stmt" count="4"/>
+        <line num="75" type="stmt" count="4"/>
+        <line num="76" type="stmt" count="4"/>
+        <line num="77" type="stmt" count="4"/>
+        <line num="78" type="stmt" count="4"/>
+        <line num="80" type="method" name="createBlacklistedTokensTable" crap="2" count="4"/>
+        <line num="82" type="stmt" count="4"/>
+        <line num="83" type="method" name="anonymous function" crap="1" count="4"/>
+        <line num="84" type="stmt" count="4"/>
+        <line num="85" type="stmt" count="4"/>
+        <line num="86" type="stmt" count="4"/>
+        <line num="87" type="stmt" count="4"/>
+        <line num="88" type="stmt" count="4"/>
+        <line num="89" type="stmt" count="4"/>
         <line num="91" type="method" name="dropAllTables" crap="2" count="0"/>
         <line num="93" type="stmt" count="0"/>
         <line num="94" type="stmt" count="0"/>
@@ -104,25 +104,47 @@
       </file>
       <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/Helpers.php">
         <class name="Helpers" namespace="Pyjac\NaijaEmoji">
-          <metrics methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="0" elements="13" coveredelements="0"/>
+          <metrics methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="5" elements="8" coveredelements="6"/>
         </class>
-        <line num="15" type="method" name="keysExistAndNotEmptyString" crap="12" count="0"/>
-        <line num="16" type="stmt" count="0"/>
-        <line num="17" type="stmt" count="0"/>
-        <line num="18" type="stmt" count="0"/>
+        <line num="15" type="method" name="keysExistAndNotEmptyString" crap="3.07" count="2"/>
+        <line num="17" type="stmt" count="2"/>
+        <line num="18" type="stmt" count="2"/>
         <line num="19" type="stmt" count="0"/>
-        <line num="20" type="stmt" count="0"/>
-        <line num="21" type="stmt" count="0"/>
-        <line num="23" type="stmt" count="0"/>
-        <line num="24" type="stmt" count="0"/>
-        <line num="34" type="method" name="keyExistAndNotEmptyString" crap="12" count="0"/>
-        <line num="35" type="stmt" count="0"/>
-        <line num="36" type="stmt" count="0"/>
-        <line num="37" type="stmt" count="0"/>
-        <metrics loc="38" ncloc="22" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="0" elements="13" coveredelements="0"/>
+        <line num="21" type="stmt" count="2"/>
+        <line num="23" type="stmt" count="2"/>
+        <line num="34" type="method" name="keyExistAndNotEmptyString" crap="3" count="2"/>
+        <line num="36" type="stmt" count="2"/>
+        <metrics loc="38" ncloc="22" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="5" elements="8" coveredelements="6"/>
       </file>
     </package>
     <package name="Pyjac\NaijaEmoji\Controller">
+      <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/Controller/AuthController.php">
+        <class name="AuthController" namespace="Pyjac\NaijaEmoji\Controller">
+          <metrics methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="18" elements="21" coveredelements="19"/>
+        </class>
+        <line num="14" type="method" name="login" crap="4.03" count="2"/>
+        <line num="15" type="stmt" count="2"/>
+        <line num="16" type="stmt" count="2"/>
+        <line num="18" type="stmt" count="0"/>
+        <line num="21" type="stmt" count="2"/>
+        <line num="23" type="stmt" count="2"/>
+        <line num="24" type="stmt" count="1"/>
+        <line num="25" type="stmt" count="2"/>
+        <line num="27" type="stmt" count="1"/>
+        <line num="30" type="method" name="generateToken" crap="1" count="1"/>
+        <line num="31" type="stmt" count="1"/>
+        <line num="32" type="stmt" count="1"/>
+        <line num="33" type="stmt" count="1"/>
+        <line num="34" type="stmt" count="1"/>
+        <line num="36" type="stmt" count="1"/>
+        <line num="37" type="stmt" count="1"/>
+        <line num="38" type="stmt" count="1"/>
+        <line num="39" type="stmt" count="1"/>
+        <line num="42" type="stmt" count="1"/>
+        <line num="43" type="stmt" count="1"/>
+        <line num="45" type="stmt" count="1"/>
+        <metrics loc="46" ncloc="34" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="18" elements="21" coveredelements="19"/>
+      </file>
       <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/Controller/EmojisController.php">
         <class name="EmojisController" namespace="Pyjac\NaijaEmoji\Controller">
           <metrics methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="10" elements="13" coveredelements="11"/>
@@ -163,8 +185,8 @@
         <line num="18" type="stmt" count="2"/>
         <line num="21" type="method" name="category" crap="1" count="2"/>
         <line num="23" type="stmt" count="2"/>
-        <line num="26" type="method" name="keywords" crap="1" count="2"/>
-        <line num="28" type="stmt" count="2"/>
+        <line num="26" type="method" name="keywords" crap="1" count="4"/>
+        <line num="28" type="stmt" count="4"/>
         <metrics loc="30" ncloc="25" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="6" coveredelements="6"/>
       </file>
       <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/Model/EmojiKeyword.php">
@@ -183,23 +205,39 @@
         <class name="User" namespace="Pyjac\NaijaEmoji\Model">
           <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
-        <line num="12" type="method" name="emojis" crap="1" count="2"/>
-        <line num="14" type="stmt" count="2"/>
+        <line num="12" type="method" name="emojis" crap="1" count="4"/>
+        <line num="14" type="stmt" count="4"/>
         <metrics loc="16" ncloc="16" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
     </package>
+    <package name="Pyjac\NaijaEmoji\Security">
+      <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/Security/UserAuthenticator.php">
+        <class name="UserAuthenticator" namespace="Pyjac\NaijaEmoji\Security">
+          <metrics methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="6" elements="8" coveredelements="6"/>
+        </class>
+        <line num="17" type="method" name="authenticate" crap="3.03" count="2"/>
+        <line num="19" type="stmt" count="2"/>
+        <line num="21" type="stmt" count="2"/>
+        <line num="22" type="stmt" count="0"/>
+        <line num="24" type="stmt" count="2"/>
+        <line num="25" type="stmt" count="2"/>
+        <line num="26" type="stmt" count="1"/>
+        <line num="29" type="stmt" count="1"/>
+        <metrics loc="30" ncloc="22" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="6" elements="8" coveredelements="6"/>
+      </file>
+    </package>
     <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/dependencies.php">
-      <line num="5" type="stmt" count="2"/>
+      <line num="5" type="stmt" count="4"/>
       <line num="10" type="stmt" count="0"/>
       <line num="11" type="stmt" count="0"/>
       <line num="12" type="stmt" count="0"/>
       <line num="14" type="stmt" count="0"/>
       <line num="15" type="stmt" count="0"/>
-      <line num="20" type="stmt" count="2"/>
-      <line num="21" type="stmt" count="2"/>
-      <line num="23" type="stmt" count="2"/>
-      <line num="24" type="stmt" count="2"/>
-      <line num="26" type="stmt" count="2"/>
+      <line num="20" type="stmt" count="4"/>
+      <line num="21" type="stmt" count="4"/>
+      <line num="23" type="stmt" count="4"/>
+      <line num="24" type="stmt" count="4"/>
+      <line num="26" type="stmt" count="4"/>
       <line num="31" type="stmt" count="0"/>
       <line num="33" type="stmt" count="0"/>
       <line num="38" type="stmt" count="0"/>
@@ -209,29 +247,31 @@
       <line num="43" type="stmt" count="0"/>
       <line num="49" type="stmt" count="0"/>
       <line num="50" type="stmt" count="0"/>
-      <line num="53" type="stmt" count="2"/>
-      <line num="54" type="stmt" count="2"/>
-      <line num="55" type="stmt" count="2"/>
-      <line num="56" type="stmt" count="2"/>
+      <line num="53" type="stmt" count="4"/>
+      <line num="54" type="stmt" count="4"/>
+      <line num="55" type="stmt" count="4"/>
+      <line num="56" type="stmt" count="4"/>
       <metrics loc="56" ncloc="46" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="24" coveredstatements="10" elements="24" coveredelements="10"/>
     </file>
     <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/routes.php">
-      <line num="5" type="stmt" count="2"/>
-      <line num="6" type="stmt" count="2"/>
-      <metrics loc="6" ncloc="4" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="2" coveredelements="2"/>
+      <line num="5" type="stmt" count="4"/>
+      <line num="6" type="stmt" count="4"/>
+      <line num="10" type="stmt" count="4"/>
+      <line num="12" type="stmt" count="4"/>
+      <metrics loc="12" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="4" coveredelements="4"/>
     </file>
     <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/settings.php">
-      <line num="5" type="stmt" count="2"/>
-      <line num="6" type="stmt" count="2"/>
-      <line num="9" type="stmt" count="2"/>
-      <line num="10" type="stmt" count="2"/>
-      <line num="13" type="stmt" count="2"/>
-      <line num="14" type="stmt" count="2"/>
-      <line num="15" type="stmt" count="2"/>
-      <line num="16" type="stmt" count="2"/>
-      <line num="17" type="stmt" count="2"/>
+      <line num="5" type="stmt" count="4"/>
+      <line num="6" type="stmt" count="4"/>
+      <line num="9" type="stmt" count="4"/>
+      <line num="10" type="stmt" count="4"/>
+      <line num="13" type="stmt" count="4"/>
+      <line num="14" type="stmt" count="4"/>
+      <line num="15" type="stmt" count="4"/>
+      <line num="16" type="stmt" count="4"/>
+      <line num="17" type="stmt" count="4"/>
       <metrics loc="17" ncloc="11" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="9" elements="9" coveredelements="9"/>
     </file>
-    <metrics files="12" loc="421" ncloc="337" classes="9" methods="22" coveredmethods="17" conditionals="0" coveredconditionals="0" statements="140" coveredstatements="106" elements="162" coveredelements="123"/>
+    <metrics files="14" loc="503" ncloc="399" classes="11" methods="25" coveredmethods="19" conditionals="0" coveredconditionals="0" statements="163" coveredstatements="137" elements="188" coveredelements="156"/>
   </project>
 </coverage>

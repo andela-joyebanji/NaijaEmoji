@@ -16,7 +16,8 @@
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17",
         "illuminate/database": "^5.2",
-        "vlucas/phpdotenv": "^2.2"
+        "vlucas/phpdotenv": "^2.2",
+        "firebase/php-jwt": "^3.0"
     },
     "autoload": {
         "psr-4": {
