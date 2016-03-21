@@ -53,8 +53,25 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         $response = $this->app->run(true);
         $data = json_decode($response->getBody(), true);
         $this->assertSame($response->getStatusCode(), 200);
-        $this->assertSame($data['name'], 'Suliat');
-        $this->assertSame($data['category'], 'sulia');
+        $this->assertSame($data['name'], $emoji->name);
+        $this->assertSame($data['category'], $emoji->category->name);
+    }
+
+    public function testGetEmojiReturnsStatusCodeOf404WithMsgWhenEmojiWithPassedIdNotFound()
+    {
+        $emoji = $this->user->emojis()->first();
+        $env = Environment::mock([
+            'REQUEST_METHOD' => 'GET',
+            'REQUEST_URI'    => '/emojis/10000',
+            'PATH_INFO'      => '/emojis',
+            ]);
+        $req = Request::createFromEnvironment($env);
+        $this->app->getContainer()['request'] = $req;
+
+        $response = $this->app->run(true);
+        $data = json_decode($response->getBody(), true);
+        $this->assertSame($response->getStatusCode(), 404);
+        $this->assertSame($data['message'], 'The requested Emoji is not found.');
     }
 
     public function testLoginReturnsTokenWhenValidUsernameAndPasswordIsPassed()
