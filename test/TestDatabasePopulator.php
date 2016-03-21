@@ -8,6 +8,13 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 class TestDatabasePopulator
 {
+	/**
+	 * Create test emoji for test user.
+	 * 
+	 * @param  Pyjac\NaijaEmoji\Model\User $user 
+	 * 
+	 * @return void
+	 */
 	private static function createEmojiOwnedBy($user)
 	{
 		$emojiData = [
@@ -22,8 +29,20 @@ class TestDatabasePopulator
 		$emoji->char = $emojiData['char'];
 		$emoji->category_id = $category->id;
 		$user->emojis()->save($emoji);
+		$keywords = self::createKeywords($emojiData['keywords']);
+		$emoji->keywords()->attach($keywords);
+	}
+
+	/**
+	 * Create keywords.
+	 * 
+	 * @param  array $keywordsData
+	 * 
+	 * @return array               
+	 */
+	private static function createKeywords($keywordsData){
 		$keywords = [];
-		foreach ($emojiData['keywords'] as $key => $keyword) {
+		foreach ($keywordsData as $key => $keyword) {
 			$keyword = trim($keyword);
                 //Skip empty keywords
 			if (!$keyword) {
@@ -32,9 +51,14 @@ class TestDatabasePopulator
 			$keywordModel = Keyword::firstOrCreate(['name' => $keyword]);
 			$keywords[] = $keywordModel->id;
 		}
-
-		$emoji->keywords()->attach($keywords);
+		return $keywords;
 	}
+
+	/**
+	 * Populate test Database with tests values.
+	 * 		
+	 * @return Pyjac\NaijaEmoji\Model\User
+	 */
 	public static function populate()
 	{
 		Capsule::beginTransaction();
