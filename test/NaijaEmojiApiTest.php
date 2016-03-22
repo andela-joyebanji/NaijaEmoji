@@ -20,6 +20,55 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         $this->user = TestDatabasePopulator::populate();
     }
 
+    public function testLoginReturnsTokenWhenValidUsernameAndPasswordIsPassed()
+    {
+        $env = Environment::mock(array(
+            'REQUEST_METHOD' => 'POST',
+            'REQUEST_URI' => '/auth/login',
+            'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+        ));
+        $req = Request::createFromEnvironment($env);
+        $req = $req->withParsedBody(['username' => 'tester','password' => 'test']);
+        $this->app->getContainer()['request'] = $req;
+        $response = $this->app->run(true);
+        $result = json_decode($response->getBody(), true);
+        $this->assertNotNull($result['token']);
+        $this->assertSame($response->getStatusCode(), 200);
+    }
+
+    public function testLoginReturnsStatusCode401WhenCorrectUsernameWithWrongPasswordIsPassed()
+    {
+        $env = Environment::mock(array(
+            'REQUEST_METHOD' => 'POST',
+            'REQUEST_URI' => '/auth/login',
+            'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+        ));
+        $req = Request::createFromEnvironment($env);
+        $req = $req->withParsedBody(['username' => 'tester','password' => 'tes']);
+        $this->app->getContainer()['request'] = $req;
+        $response = $this->app->run(true);
+        $result = json_decode($response->getBody(), true);
+        $this->assertFalse(isset($result['token']));
+        $this->assertSame($response->getStatusCode(), 401);
+    }
+
+    public function testLoginReturnsStatusCode401WhenIncorrectUsernameWithPasswordIsPassed()
+    {
+        $env = Environment::mock(array(
+            'REQUEST_METHOD' => 'POST',
+            'REQUEST_URI' => '/auth/login',
+            'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+        ));
+        $req = Request::createFromEnvironment($env);
+        $req = $req->withParsedBody(['username' => '@tester','password' => 'tes']);
+        $this->app->getContainer()['request'] = $req;
+        $response = $this->app->run(true);
+        $result = json_decode($response->getBody(), true);
+        $this->assertFalse(isset($result['token']));
+        $this->assertSame($response->getStatusCode(), 401);
+    }
+
+
     public function testGetAllEmojisReturnsOneEmoji()
     {
         $env = Environment::mock([
@@ -74,21 +123,6 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         $this->assertSame($data['message'], 'The requested Emoji is not found.');
     }
 
-    public function testLoginReturnsTokenWhenValidUsernameAndPasswordIsPassed()
-    {
-        $env = Environment::mock(array(
-            'REQUEST_METHOD' => 'POST',
-            'REQUEST_URI' => '/auth/login',
-            'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
-        ));
-        $req = Request::createFromEnvironment($env);
-        $req = $req->withParsedBody(['username' => 'tester','password' => 'test']);
-        $this->app->getContainer()['request'] = $req;
-        $response = $this->app->run(true);
-        $result = json_decode($response->getBody(), true);
-        $this->assertNotNull($result['token']);
-        $this->assertSame($response->getStatusCode(), 200);
-    }
 
     public function testRegisterReturnsStatusCode201WithMsgWhenUniqueUsernameAndPasswordIsPassed()
     {
@@ -122,21 +156,7 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         $this->assertSame($response->getStatusCode(), 409);
     }
 
-    public function testLoginReturnsStatusCode401WhenInvalidUsernameAndPasswordIsPassed()
-    {
-        $env = Environment::mock(array(
-            'REQUEST_METHOD' => 'POST',
-            'REQUEST_URI' => '/auth/login',
-            'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
-        ));
-        $req = Request::createFromEnvironment($env);
-        $req = $req->withParsedBody(['username' => 'tester','password' => 'tes']);
-        $this->app->getContainer()['request'] = $req;
-        $response = $this->app->run(true);
-        $result = json_decode($response->getBody(), true);
-        $this->assertFalse(isset($result['token']));
-        $this->assertSame($response->getStatusCode(), 401);
-    }
+    
 
     public function testRegisterReturnsStatusCode400WithMsgWhenUsernameOrPasswordIsNotPassed()
     {
