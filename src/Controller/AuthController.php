@@ -35,7 +35,7 @@ final class AuthController
         $token = [
             "iat" => $timeIssued,   // Issued at: time when the token was generated
             'jti'  => $tokenId,          // Json Token Id: an unique identifier for the token
-            "nbf" => $timeIssued + 5, //5 seconds
+            "nbf" => $timeIssued, //Not before time
             "exp" => $timeIssued + 60 * 60 * 24 * 30, // expires in 30 days
             'data' => [                  // Data related to the signer user
                 'userId'   => $userId // userid from the users table
@@ -43,6 +43,14 @@ final class AuthController
         ];
 
         return JWT::encode($token, $appSecret, $jwtAlgorithm);
+    }
+
+    public function logout($request, $response, $args){
+         $user = $request->getAttribute('user');
+         $blacklistedToken = new BlacklistedToken();
+         $blacklistedToken->token_jti = $request->getAttribute('token_jti');
+         $user->blacklistedTokens()->save($blacklistedToken);
+         return $response->withJson(["message" => "Logout Successful"],200);
     }
 
     public function register($request, $response, $args) {

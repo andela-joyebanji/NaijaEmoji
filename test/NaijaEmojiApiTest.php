@@ -156,7 +156,6 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         $this->assertSame($response->getStatusCode(), 409);
     }
 
-    
 
     public function testRegisterReturnsStatusCode400WithMsgWhenUsernameOrPasswordIsNotPassed()
     {
@@ -230,4 +229,88 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         $this->assertSame($response->getStatusCode(), 400);
 
     }
+
+    public function testLogoutReturnsStatusCode400WithMsgWhenAuthorizationHeaderIsNotSet()
+    {
+        $env = Environment::mock(array(
+            'REQUEST_METHOD' => 'POST',
+            'REQUEST_URI' => '/auth/logout',
+            'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+        ));
+        $req = Request::createFromEnvironment($env);
+        $this->app->getContainer()['request'] = $req;
+        $response = $this->app->run(true);
+        $result = json_decode($response->getBody(), true);
+        $this->assertEquals($result['message'],'Token not provided');
+        $this->assertSame($response->getStatusCode(), 400);
+    }
+
+    public function testLogoutReturnsStatusCode400WithMsgWhenAuthorizationHeaderIsSetButTokenIsNotPresent()
+    {
+        $env = Environment::mock(array(
+            'REQUEST_METHOD' => 'POST',
+            'REQUEST_URI' => '/auth/logout',
+            'HTTP_AUTHORIZATION' => "",
+            'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+        ));
+        $req = Request::createFromEnvironment($env);
+        $this->app->getContainer()['request'] = $req;
+        $response = $this->app->run(true);
+        $result = json_decode($response->getBody(), true);
+        $this->assertEquals($result['message'],'Token not provided');
+        $this->assertSame($response->getStatusCode(), 400);
+    }
+
+    public function testLogoutReturnsStatusCode400WithMsgWhenInvalidTokenIsPassed()
+    {
+        $env = Environment::mock(array(
+            'REQUEST_METHOD' => 'POST',
+            'REQUEST_URI' => '/auth/logout',
+            'HTTP_AUTHORIZATION' => "Bearer lblkbbbvvgjh",
+            'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+        ));
+        $req = Request::createFromEnvironment($env);
+        $this->app->getContainer()['request'] = $req;
+        $response = $this->app->run(true);
+        $result = json_decode($response->getBody(), true);
+        $this->assertEquals($result['message'],'Wrong number of segments');
+        $this->assertSame($response->getStatusCode(), 400);
+    }
+
+     public function testLogoutReturnsStatusCode200WithMsgWhenValidTokenIsPassed()
+    {
+
+        $token = $this->getLoginTokenForTestUser();
+        $token = "Bearer ".$token;
+        $env = Environment::mock([
+            'REQUEST_METHOD'     => 'POST',
+            'REQUEST_URI'        => '/auth/logout',
+            'HTTP_AUTHORIZATION' => $token,
+            'CONTENT_TYPE'       => 'application/x-www-form-urlencoded'
+        ]);
+        $reqs = Request::createFromEnvironment($env);
+        $this->app->getContainer()['request'] = $reqs;
+        $response = $this->app->run(true);
+        $result = (string)$response->getBody();
+        $this->assertContains('Logout Successful',$result);
+        $this->assertSame($response->getStatusCode(), 200);
+    }
+
+    private function getLoginTokenForTestUser()
+    {
+        $env = Environment::mock(array(
+            'REQUEST_METHOD' => 'POST',
+            'REQUEST_URI' => '/auth/login',
+            'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+        ));
+        $req = Request::createFromEnvironment($env);
+        $req = $req->withParsedBody(['username' => 'tester','password' => 'test']);
+        $this->app->getContainer()['request'] = $req;
+        $response = $this->app->run(true);
+        $result = json_decode($response->getBody(), true);
+
+        return $result['token'];
+    }
+
+
 }
