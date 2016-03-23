@@ -12,6 +12,7 @@ class Emoji extends Eloquent
      * @var array
      */
     protected $visible = ['id', 'name', 'char', 'created_at', 'updated_at', 'category', 'keywords', 'created_by'];
+    protected $fillable = ['name', 'char'];
 
     public function created_by()
     {
