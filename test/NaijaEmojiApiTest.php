@@ -3,10 +3,10 @@
 use Pyjac\NaijaEmoji\App;
 use Pyjac\NaijaEmoji\Model\Category;
 use Pyjac\NaijaEmoji\Model\Emoji;
-use Pyjac\NaijaEmoji\Model\Keyword;
 use Pyjac\NaijaEmoji\Model\User;
 use Slim\Http\Environment;
 use Slim\Http\Request;
+
 require_once 'TestDatabasePopulator.php';
 
 class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
@@ -39,11 +39,11 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
 
     private function post($url,$body)
     {
-        $env = Environment::mock(array(
+        $env = Environment::mock([
             'REQUEST_METHOD' => 'POST',
             'REQUEST_URI'    => $url,
             'CONTENT_TYPE'   => 'application/x-www-form-urlencoded'
-        ));
+        ]);
         $req = Request::createFromEnvironment($env)->withParsedBody($body);
         $this->app->getContainer()['request'] = $req;
         return $this->app->run(true);  
@@ -87,6 +87,7 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
     public function testLoginReturnsStatusCode401WhenCorrectUsernameWithWrongPasswordIsPassed()
     {
         $response = $this->post('/auth/login',['username' => 'tester','password' => 'tes']);
+
         $result = json_decode($response->getBody(), true);
         $this->assertFalse(isset($result['token']));
         $this->assertSame($response->getStatusCode(), 401);
@@ -94,14 +95,15 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
 
     public function testLoginReturnsStatusCode401WhenIncorrectUsernameWithPasswordIsPassed()
     {
+
         $response = $this->post('/auth/login',['username' => '@tester','password' => 'tes']);
         $result = json_decode($response->getBody(), true);
         $this->assertFalse(isset($result['token']));
         $this->assertSame($response->getStatusCode(), 401);
     }
 
-
     public function testGetAllEmojisReturnsTwoEmoji()
+
     {
     
         $response = $this->get('/emojis');
@@ -130,12 +132,12 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         $this->assertSame($data['message'], 'The requested Emoji is not found.');
     }
 
-
     public function testRegisterReturnsStatusCode201WithMsgWhenUniqueUsernameAndPasswordIsPassed()
     {
+
         $response = $this->post('/auth/register',['username' => 'pyjac','password' => 'pyjac']);
         $result = json_decode($response->getBody(), true);
-        $this->assertEquals($result['message'],'User successfully created.');
+        $this->assertEquals($result['message'], 'User successfully created.');
         $this->assertSame($response->getStatusCode(), 201);
     }
 
@@ -143,10 +145,12 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
     {
 
         $response = $this->post('/auth/register',['username' => 'tester','password' => 'pyjac']);
+
         $result = json_decode($response->getBody(), true);
-        $this->assertEquals($result['message'],'Username already exist.');
+        $this->assertEquals($result['message'], 'Username already exist.');
         $this->assertSame($response->getStatusCode(), 409);
     }
+
 
      public function testRegisterReturnsStatusCode400WithMsgWhenOnlyUsernameIsPassed()
     {
@@ -168,6 +172,7 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
     {
         $response = $this->post('/auth/register', []);
         $result = json_decode($response->getBody(), true);
+
         $this->assertEquals($result['message'], $this->registerErrorMessage);
         $this->assertSame($response->getStatusCode(), 400);
 
@@ -189,6 +194,7 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         $this->assertSame($response->getStatusCode(), 400);
     }
 
+
     public function testRegisterReturnsStatusCode400WithMsgWhenUsernameAndPasswordIsPassedWithEmptyStrings()
     {
         $response = $this->post('/auth/register', ['username' => ' ','password' => ' ']);
@@ -199,20 +205,21 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
 
     public function testLogoutReturnsStatusCode400WithMsgWhenAuthorizationHeaderIsNotSet()
     {
+
         $response = $this->post('/auth/logout',[]);
         $result = json_decode($response->getBody(), true);
-        $this->assertEquals($result['message'],'Token not provided');
+        $this->assertEquals($result['message'], 'Token not provided');
         $this->assertSame($response->getStatusCode(), 400);
     }
 
     public function testLogoutReturnsStatusCode400WithMsgWhenAuthorizationHeaderIsSetButTokenIsNotPresent()
     {
-        $env = Environment::mock(array(
-            'REQUEST_METHOD' => 'POST',
-            'REQUEST_URI' => '/auth/logout',
-            'HTTP_AUTHORIZATION' => "",
-            'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
-        ));
+        $env = Environment::mock([
+            'REQUEST_METHOD'     => 'POST',
+            'REQUEST_URI'        => '/auth/logout',
+            'HTTP_AUTHORIZATION' => '',
+            'CONTENT_TYPE'       => 'application/x-www-form-urlencoded',
+        ]);
         $req = Request::createFromEnvironment($env);
         $this->app->getContainer()['request'] = $req;
         $response = $this->app->run(true);
@@ -223,13 +230,14 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
 
     public function testLogoutReturnsStatusCode400WithMsgWhenInvalidTokenIsPassed()
     {
+
         $response = $this->postWithToken('/auth/logout',"lblkbbbvvgjh", []);
         $result = json_decode($response->getBody(), true);
-        $this->assertEquals($result['message'],'Wrong number of segments');
+        $this->assertEquals($result['message'], 'Wrong number of segments');
         $this->assertSame($response->getStatusCode(), 400);
     }
 
-     public function testLogoutReturnsStatusCode200WithMsgWhenValidTokenIsPassed()
+    public function testLogoutReturnsStatusCode200WithMsgWhenValidTokenIsPassed()
     {
         $token = $this->getLoginTokenForTestUser();
         $response = $this->postWithToken('/auth/logout',$token, []);
@@ -240,11 +248,13 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
 
     private function getLoginTokenForTestUser()
     {
+
         $response = $this->post('/auth/login',['username' => 'tester','password' => 'test']);
         $result = json_decode($response->getBody(), true);
 
         return $result['token'];
     }
+
 
     public function testCreateEmojiReturnsStatusCode201WithMsgWhenWellPreparedEmojiDataIsSent()
     {
@@ -375,6 +385,4 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         $this->assertSame($response->getStatusCode(), 401);
         $this->assertContains("You're not allowed to update an emoji that you did not create.", $result);
     }
-
-
 }
