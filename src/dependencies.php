@@ -43,35 +43,35 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
-
 $container['errorHandler'] = function ($c) {
     return function ($request, $response, $exception) use ($c) {
 
         if ($exception instanceof \DomainException || $exception instanceof \Firebase\JWT\SignatureInvalidException) {
-            return $response->withJson(["message" => $exception->getMessage()],401);
+            return $response->withJson(['message' => $exception->getMessage()], 401);
         }
         if ($exception instanceof \Firebase\JWT\ExpiredException) {
-            return $response->withJson(["message" => "The provided token as expired."],401);
+            return $response->withJson(['message' => 'The provided token as expired.'], 401);
         }
         if ($exception instanceof \PDOException) {
             $c->logger->critical($exception->getMessage());
-            return $response->withJson(["message" => "Sorry, We're having technical difficulties. Our Developers would fix this issue as soon as possible."],500);
+
+            return $response->withJson(['message' => "Sorry, We're having technical difficulties. Our Developers would fix this issue as soon as possible."], 500);
         }
-        
+
         if ($exception instanceof \Firebase\JWT\BeforeValidException) {
-            return $response->withJson(["message" => $exception->getMessage()],401);
+            return $response->withJson(['message' => $exception->getMessage()], 401);
         }
 
         // Refernece: http://stackoverflow.com/questions/3825990/http-response-code-for-post-when-resource-already-exists
         if ($exception instanceof Pyjac\NaijaEmoji\Exception\DuplicateEmojiException) {
-            return $response->withJson(["message" => $exception->getMessage()],409);
+            return $response->withJson(['message' => $exception->getMessage()], 409);
         }
 
         if ($exception instanceof \InvalidArgumentException || $exception instanceof \UnexpectedValueException) {
-            return $response->withJson(["message" => $exception->getMessage()],400);
+            return $response->withJson(['message' => $exception->getMessage()], 400);
         }
-        
-        return $response->withJson(["message" => $exception->getMessage()." Something went wrong!"],500);
+
+        return $response->withJson(['message' => $exception->getMessage().' Something went wrong!'], 500);
     };
 };
 
