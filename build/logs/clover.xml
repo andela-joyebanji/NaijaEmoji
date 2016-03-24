@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1458849560">
-  <project timestamp="1458849560">
+<coverage generated="1458850487">
+  <project timestamp="1458850487">
     <package name="Pyjac\NaijaEmoji">
       <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/App.php">
         <class name="App" namespace="Pyjac\NaijaEmoji">
@@ -245,23 +245,26 @@
     <package name="Pyjac\NaijaEmoji\Middleware">
       <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/Middleware/AuthMiddleware.php">
         <class name="AuthMiddleware" namespace="Pyjac\NaijaEmoji\Middleware">
-          <metrics methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="14" coveredelements="14"/>
+          <metrics methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="15" elements="17" coveredelements="17"/>
         </class>
-        <line num="18" type="method" name="__invoke" crap="4" count="19"/>
-        <line num="20" type="stmt" count="19"/>
-        <line num="21" type="stmt" count="1"/>
-        <line num="24" type="stmt" count="18"/>
+        <line num="19" type="method" name="__invoke" crap="3" count="19"/>
+        <line num="21" type="stmt" count="19"/>
+        <line num="22" type="stmt" count="1"/>
         <line num="25" type="stmt" count="18"/>
-        <line num="26" type="stmt" count="18"/>
-        <line num="27" type="stmt" count="1"/>
-        <line num="29" type="stmt" count="17"/>
-        <line num="30" type="stmt" count="16"/>
+        <line num="26" type="stmt" count="17"/>
+        <line num="27" type="stmt" count="16"/>
+        <line num="29" type="stmt" count="16"/>
+        <line num="30" type="stmt" count="1"/>
         <line num="32" type="stmt" count="16"/>
-        <line num="33" type="stmt" count="1"/>
+        <line num="33" type="stmt" count="16"/>
         <line num="35" type="stmt" count="16"/>
-        <line num="36" type="stmt" count="16"/>
-        <line num="38" type="stmt" count="16"/>
-        <metrics loc="40" ncloc="29" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="14" coveredelements="14"/>
+        <line num="46" type="method" name="getUserToken" crap="2" count="18"/>
+        <line num="49" type="stmt" count="18"/>
+        <line num="50" type="stmt" count="18"/>
+        <line num="51" type="stmt" count="18"/>
+        <line num="52" type="stmt" count="1"/>
+        <line num="55" type="stmt" count="17"/>
+        <metrics loc="57" ncloc="38" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="15" elements="17" coveredelements="17"/>
       </file>
     </package>
     <package name="Pyjac\NaijaEmoji\Model">
@@ -391,6 +394,6 @@
       <line num="17" type="stmt" count="45"/>
       <metrics loc="17" ncloc="11" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="9" elements="9" coveredelements="9"/>
     </file>
-    <metrics files="17" loc="772" ncloc="590" classes="14" methods="34" coveredmethods="34" conditionals="0" coveredconditionals="0" statements="251" coveredstatements="251" elements="285" coveredelements="285"/>
+    <metrics files="17" loc="789" ncloc="599" classes="14" methods="35" coveredmethods="35" conditionals="0" coveredconditionals="0" statements="253" coveredstatements="253" elements="288" coveredelements="288"/>
   </project>
 </coverage>
