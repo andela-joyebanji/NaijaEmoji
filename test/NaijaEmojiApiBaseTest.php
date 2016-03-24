@@ -3,7 +3,7 @@
 require_once 'NaijaEmojiApiTest.php';
 
 
-class NaijaEmojiApiTestBase extends NaijaEmojiApiTest
+class NaijaEmojiApiBaseTest extends NaijaEmojiApiTest
 {
     public function testGetAllEmojisReturnsTwoEmoji()
     {
