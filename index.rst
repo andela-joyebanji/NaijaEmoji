@@ -1,13 +1,12 @@
 |Build Status| |Scrutinizer Code Quality| |Coverage Status|
 
 NaijaEmoji
-==========
+~~~~~~~~~~
 
-`NaijaEmoji <http://naijaemoji.readthedocs.org/en/latest/>`__ is a
-simple Restful API using Slim for NaijaEmoji Service.
+`NaijaEmoji`_ is a simple Restful API using Slim for NaijaEmoji Service.
 
 Usage
-=====
+-----
 
 Clone this repository like so:
 
@@ -34,44 +33,105 @@ change the below to your local configuration.
     DBNAME   = YourDatabase
     PORT     = port
 
+All examples are shown in POSTMAN.
+
+Registration
+------------
+
+To manage emojis, you’d need to register as a user. The
+``/auth/register`` route handles user registration.
+
+You can register a user using ``POSTMAN`` like so:
+
+.. figure:: screenshots/user_registration.png
+   :alt: User Registration
+
+   User Registration
+
+Supply your preferred ``username`` and ``password``.
+
+Login
+-----
+
+To make use of routes that requires token authentication, you need to
+get a token. The ``/auth/login`` route handles token generation for
+users. You can get token like so:
+
+.. figure:: screenshots/user_login.png
+   :alt: User Login
+
+   User Login
+
+Supply your registered ``username`` and ``password``. You can now use
+the returned token to make other requests to restricted routes.
+
+Get all Emojis
+--------------
+
+To get all emojis, you send a ``GET`` request to ``/emojis`` route like
+so:
+
+.. figure:: screenshots/get_all_emojis.png
+   :alt: Get All Emojis
+
+   Get All Emojis
+
+Get an Emoji
+------------
+
+To get an emoji, you send a ``GET`` request to ``/emoji/{id of emoji}``
+route like so:
+
+.. figure:: screenshots/get_emoji.png
+   :alt: Get Emoji
+
+   Get Emoji
+
+Create Emoji
+------------
+
+To create an emoji, you send a ``POST`` request, with your
+authentication token, to ``/emojis`` route with emoji’s information like
+so:
+
+.. figure:: screenshots/create_emoji.png
+   :alt: Create Emoji
+
+   Create Emoji
+
+Delete Emoji
+------------
+
+To delete an emoji, you send a ``DELETE`` request, with your
+authentication token, to ``/emojis/{id of emoji}`` route like so:
+
+.. figure:: screenshots/delete_emoji.png
+   :alt: Delete Emoji
+
+   Delete Emoji
+
+``Note: You can only delete an Emoji you created personally.``
+
+Update Emoji
+------------
+
+To update an emoji, you send a ``PUT`` or ``PATCH`` request, with your
+authentication token, to ``/emojis/{id of emoji}`` route with the
+information you what to update like so:
+
+.. figure:: screenshots/update_emoji.png
+   :alt: Update Emoji
+
+   Update Emoji
+
+``Note: You can only update an Emoji you created personally.``
+
 Security
-========
+--------
 
-If you discover any security related issues, please email `Oyebanji
-Jacob <oyebanji.jacob@andela.com>`__ or create an issue.
+If you
 
-Credits
-=======
-
-`Oyebanji Jacob <https://github.com/andela-joyebanji>`__
-
-License
-=======
-
-The MIT License (MIT)
----------------------
-
-Copyright (c) 2016 Oyebanji Jacob oyebanji.jacob@andela.com
-
-    Permission is hereby granted, free of charge, to any person
-    obtaining a copy of this software and associated documentation files
-    (the "Software"), to deal in the Software without restriction,
-    including without limitation the rights to use, copy, modify, merge,
-    publish, distribute, sublicense, and/or sell copies of the Software,
-    and to permit persons to whom the Software is furnished to do so,
-    subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be
-    included in all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
-    BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-    ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
+.. _NaijaEmoji: http://naijaemoji.readthedocs.org/en/latest/
 
 .. |Build Status| image:: https://travis-ci.org/andela-joyebanji/NaijaEmoji.svg?branch=develop
    :target: https://travis-ci.org/andela-joyebanji/NaijaEmoji
