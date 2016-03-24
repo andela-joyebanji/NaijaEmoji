@@ -26,6 +26,46 @@ You need set your environment variables to define your database parameters or re
     DBNAME   = YourDatabase
     PORT     = port
 
+All examples are shown in POSTMAN.
+
+## Registration
+
+To manage emojis, you'd need to register as a user. The `/auth/register` route handles user registration. 
+ 
+You can register a user using `POSTMAN` like so:
+
+![User Registration](screenshots/user_registration.png "User Registration")
+
+Supply your preferred `username` and `password`.
+
+## Login
+To make use of routes that requires token authentication, you need to get a token. The `/auth/login` route handles token generation for users. 
+You can get token like so:
+![User Login](screenshots/user_login.png "User Login")
+Supply your registered `username` and `password`. You can now use the returned token to make other requests to restricted routes.
+
+## Get all Emojis
+To get all emojis, you send a `GET` request to `/emojis` route like so:
+![Get All Emojis](screenshots/get_all_emojis.png "Get All Emojis")
+
+## Get an Emoji
+To get an emoji, you send a `GET` request to `/emoji/{id of emoji}` route like so:
+![Get Emoji](screenshots/get_emoji.png "Get Emoji")
+
+## Create Emoji
+To create an emoji, you send a `POST` request, with your authentication token, to `/emojis` route with emoji's information like so:
+![Create Emoji](screenshots/create_emoji.png "Create Emoji")
+
+## Delete Emoji
+To delete an emoji, you send a `DELETE` request, with your authentication token, to `/emojis/{id of emoji}` route like so:
+![Delete Emoji](screenshots/delete_emoji.png "Delete Emoji")
+
+`Note: You can only delete an Emoji you created personally.`
+
+## Update Emoji
+To update an emoji, you send a `PUT` or `PATCH` request, with your authentication token, to `/emojis/{id of emoji}` route with the information you what to update like so:
+![Update Emoji](screenshots/update_emoji.png "Update Emoji")
+
 
 ## Security
 
