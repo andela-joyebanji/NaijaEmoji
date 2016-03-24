@@ -10,10 +10,18 @@ use Pyjac\NaijaEmoji\Security\UserAuthenticator;
 
 final class AuthController
 {
-    public function login($request, $response, $args)
+    /**
+     * Login a user.
+     *
+     * @param Slim\Http\Request  $request
+     * @param Slim\Http\Response $response
+     *
+     * @return Slim\Http\Response
+     */
+    public function login($request, $response)
     {
         $userData = $request->getParsedBody();
-        if (!$userData || !Helpers::keysExistAndNotEmptyString(['username', 'password'], $userData)) {
+        if ($this->validateUserData($userData)) {
             return $response->withJson(['message' => 'Username or Password field not provided.'], 400);
         }
 
@@ -26,6 +34,12 @@ final class AuthController
         return $response->withJson(['token' => $this->generateToken($user->id)]);
     }
 
+    /**
+     * Generate a token for user with passed Id.
+     * @param  int $userId 
+     *         
+     * @return string
+     */
     private function generateToken($userId)
     {
         $appSecret = getenv('APP_SECRET');
@@ -45,7 +59,7 @@ final class AuthController
         return JWT::encode($token, $appSecret, $jwtAlgorithm);
     }
 
-    public function logout($request, $response, $args)
+    public function logout($request, $response)
     {
         $user = $request->getAttribute('user');
         $blacklistedToken = new BlacklistedToken();
@@ -55,26 +69,45 @@ final class AuthController
         return $response->withJson(['message' => 'Logout Successful'], 200);
     }
 
-    public function register($request, $response, $args)
+    /**
+     * Register a user.
+     *
+     * @param Slim\Http\Request  $request
+     * @param Slim\Http\Response $response
+     *
+     * @return Slim\Http\Response
+     */
+    public function register($request, $response)
     {
         $userData = $request->getParsedBody();
 
-        if (!$userData || !Helpers::keysExistAndNotEmptyString(['username', 'password'], $userData)) {
+        if ($this->validateUserData($userData)) {
             return $response->withJson(['message' => 'Username or Password field not provided.'], 400);
         }
 
-        $username = $userData['username'];
-        $password = $userData['password'];
-        if (User::where('username', $username)->first()) {
+        if (User::where('username', $userData['username'])->first()) {
             return $response->withJson(['message' => 'Username already exist.'], 409);
         }
 
-        $user = new User();
-        $user->username = $username;
-        $user->password = password_hash($password, PASSWORD_DEFAULT);
-        $user->role = 'member';
-        $user->save();
-
+        User::firstOrCreate(
+                [
+                    'username' => $userData['username'], 
+                    'password' => password_hash($userData['password'], PASSWORD_DEFAULT),
+                    'role'     => 'member'
+                ]);
+       
         return $response->withJson(['message' => 'User successfully created.'], 201);
+    }
+
+    /**
+     * Validate user data are correct.
+     *     
+     * @param  array $userData
+     * 
+     * @return bool
+     */
+    private function validateUserData($userData)
+    {
+        return (!$userData || !Helpers::keysExistAndNotEmptyString(['username', 'password'], $userData));
     }
 }

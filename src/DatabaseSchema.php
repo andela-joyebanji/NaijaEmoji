@@ -87,14 +87,4 @@ class DatabaseSchema
             });
         }
     }
-
-    public static function dropAllTables()
-    {
-        Capsule::schema()->dropIfExists('users');
-        Capsule::schema()->dropIfExists('categories');
-        Capsule::schema()->dropIfExists('emojis');
-        Capsule::schema()->dropIfExists('keywords');
-        Capsule::schema()->dropIfExists('emoji_keywords');
-        Capsule::schema()->dropIfExists('blacklisted_tokens');
-    }
 }

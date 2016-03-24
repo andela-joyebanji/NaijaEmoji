@@ -3,6 +3,7 @@
 namespace Pyjac\NaijaEmoji\Controller;
 
 use Illuminate\Database\Capsule\Manager;
+use Pyjac\NaijaEmoji\Exception\DuplicateEmojiException;
 use Pyjac\NaijaEmoji\Model\Category;
 use Pyjac\NaijaEmoji\Model\Keyword;
 use Pyjac\NaijaEmoji\Model\Emoji;
@@ -129,7 +130,7 @@ final class EmojisController
             throw new \UnexpectedValueException("The supplied emoji data is not formatted correctly.");
         }
         if (Emoji::where("name",$emojiData["name"])->first()) {
-                throw new \DuplicateEmojiException("The emoji name already exist.");    
+                throw new DuplicateEmojiException("The emoji name already exist.");    
         }
         $user = $request->getAttribute("user");
         $this->createEmoji($emojiData, $user);
@@ -153,9 +154,7 @@ final class EmojisController
         if (!$emoji) {
             throw new \DomainException("You're not allowed to delete an emoji that you did not create.");
         }
-        if (!$emoji->delete()) {
-            throw new \RuntimeException("Cannot delete emoji.");
-        }
+        $emoji->delete();
 
         return $response->withJson(["message" => "Emoji successfully deleted."], 200);
     }

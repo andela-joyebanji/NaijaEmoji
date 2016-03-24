@@ -26,14 +26,11 @@ class AuthMiddleware
         if (!$userJwt) {
             throw new \UnexpectedValueException('Token not provided');
         }
-        $appSecret = getenv('APP_SECRET');
-        $jwtAlgorithm = getenv('JWT_ALGORITHM');
-        $jwtToken = JWT::decode($userJwt, $appSecret, [$jwtAlgorithm]);
-
+        $jwtToken = JWT::decode($userJwt, getenv('APP_SECRET'), [getenv('JWT_ALGORITHM')]);
         $user = \Pyjac\NaijaEmoji\Model\User::with('blacklistedTokens')->where('id', $jwtToken->data->userId)->first();
 
         if ($user->blacklistedTokens()->where('token_jti', $jwtToken->jti)->get()->first()) {
-            throw new \DomainException();
+            throw new \DomainException("Your token has been logged out.");
         }
         $request = $request->withAttribute('user', $user);
         $request = $request->withAttribute('token_jti', $jwtToken->jti);
