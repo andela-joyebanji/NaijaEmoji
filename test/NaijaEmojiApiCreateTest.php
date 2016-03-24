@@ -6,17 +6,17 @@ require_once 'NaijaEmojiApiTest.php';
 
 class NaijaEmojiApiCreateTest extends NaijaEmojiApiTest
 {
-	public function testCreateEmojiReturnsStatusCode201WithMsgWhenWellPreparedEmojiDataIsSent()
+    public function testCreateEmojiReturnsStatusCode201WithMsgWhenWellPreparedEmojiDataIsSent()
     {
         $emojiData = [
         'name'     => 'Auliat',
         'char'     => '__[:]__',
         'category' => 'aaa',
-        'keywords' => ['lol', 'hmmm']
+        'keywords' => ['lol', 'hmmm'],
         ];
         $token = $this->getLoginTokenForTestUser();
         $response = $this->postWithToken('/emojis', $token, $emojiData);
-        $result = (string)$response->getBody();
+        $result = (string) $response->getBody();
         $this->assertSame($response->getStatusCode(), 201);
         $this->assertContains('Emoji created successfully.', $result);
     }
@@ -27,11 +27,11 @@ class NaijaEmojiApiCreateTest extends NaijaEmojiApiTest
         'name'     => 'Peace',
         'char'     => '__[:]__',
         'category' => 'aaa',
-        'keywords' => ['']
+        'keywords' => [''],
         ];
         $token = $this->getLoginTokenForTestUser();
         $response = $this->postWithToken('/emojis', $token, $emojiData);
-        $result = (string)$response->getBody();
+        $result = (string) $response->getBody();
         $this->assertSame($response->getStatusCode(), 201);
         $this->assertContains('Emoji created successfully.', $result);
     }
@@ -43,11 +43,11 @@ class NaijaEmojiApiCreateTest extends NaijaEmojiApiTest
         'name'     => $emoji->name,
         'char'     => '__[:]__',
         'category' => 'aaa',
-        'keywords' => ['']
+        'keywords' => [''],
         ];
         $token = $this->getLoginTokenForTestUser();
         $response = $this->postWithToken('/emojis', $token, $emojiData);
-        $result = (string)$response->getBody();
+        $result = (string) $response->getBody();
         $this->assertSame($response->getStatusCode(), 409);
         $this->assertContains('The emoji name already exist.', $result);
     }
@@ -57,11 +57,11 @@ class NaijaEmojiApiCreateTest extends NaijaEmojiApiTest
         $emojiData = [
         'name'     => 'Auliat',
         'char'     => '__[:]__',
-        'category' => 'aaa'
+        'category' => 'aaa',
         ];
         $token = $this->getLoginTokenForTestUser();
         $response = $this->postWithToken('/emojis', $token, $emojiData);
-        $result = (string)$response->getBody();
+        $result = (string) $response->getBody();
         $this->assertSame($response->getStatusCode(), 400);
         $this->assertContains($this->updateErrorMessage, $result);
     }
@@ -71,11 +71,11 @@ class NaijaEmojiApiCreateTest extends NaijaEmojiApiTest
         $emojiData = [
         'name'     => 'Auliat',
         'char'     => '__[:]__',
-        'keywords' => ['lol', 'hmmm']
+        'keywords' => ['lol', 'hmmm'],
         ];
         $token = $this->getLoginTokenForTestUser();
         $response = $this->postWithToken('/emojis', $token, $emojiData);
-        $result = (string)$response->getBody();
+        $result = (string) $response->getBody();
         $this->assertSame($response->getStatusCode(), 400);
         $this->assertContains($this->updateErrorMessage, $result);
     }
@@ -85,11 +85,11 @@ class NaijaEmojiApiCreateTest extends NaijaEmojiApiTest
         $emojiData = [
         'name'     => 'Auliat',
         'category' => 'aaa',
-        'keywords' => ['lol', 'hmmm']
+        'keywords' => ['lol', 'hmmm'],
         ];
         $token = $this->getLoginTokenForTestUser();
         $response = $this->postWithToken('/emojis', $token, $emojiData);
-        $result = (string)$response->getBody();
+        $result = (string) $response->getBody();
         $this->assertSame($response->getStatusCode(), 400);
         $this->assertContains($this->updateErrorMessage, $result);
     }
@@ -99,11 +99,11 @@ class NaijaEmojiApiCreateTest extends NaijaEmojiApiTest
         $emojiData = [
         'char'     => '__[:]__',
         'category' => 'aaa',
-        'keywords' => ['lol', 'hmmm']
+        'keywords' => ['lol', 'hmmm'],
         ];
         $token = $this->getLoginTokenForTestUser();
         $response = $this->postWithToken('/emojis', $token, $emojiData);
-        $result = (string)$response->getBody();
+        $result = (string) $response->getBody();
         $this->assertSame($response->getStatusCode(), 400);
         $this->assertContains($this->updateErrorMessage, $result);
     }

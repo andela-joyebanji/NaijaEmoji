@@ -20,23 +20,24 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
     {
         $this->app = (new App())->get();
         $this->user = TestDatabasePopulator::populate();
-        $this->registerErrorMessage = 'Username or Password field not provided.'; 
+        $this->registerErrorMessage = 'Username or Password field not provided.';
         $this->updateErrorMessage = 'The supplied emoji data is not formatted correctly.';
-        $this->updateSuccessMessage = "Emoji updated successfully.";
+        $this->updateSuccessMessage = 'Emoji updated successfully.';
     }
 
-    protected function deleteWithToken($url,$token)
+    protected function deleteWithToken($url, $token)
     {
-        $env = Environment::mock(array(
-            'REQUEST_METHOD'     => 'DELETE',
-            'REQUEST_URI'        => $url,
+        $env = Environment::mock([
+            'REQUEST_METHOD'         => 'DELETE',
+            'REQUEST_URI'            => $url,
             'X-HTTP-Method-Override' => 'DELETE',
-            'HTTP_AUTHORIZATION' => "Bearer ".$token,
-            'CONTENT_TYPE'       => 'application/x-www-form-urlencoded'
-        ));
+            'HTTP_AUTHORIZATION'     => 'Bearer '.$token,
+            'CONTENT_TYPE'           => 'application/x-www-form-urlencoded',
+        ]);
         $req = Request::createFromEnvironment($env);
         $this->app->getContainer()['request'] = $req;
-        return $this->app->run(true);  
+
+        return $this->app->run(true);
     }
 
     protected function get($url)
@@ -48,52 +49,53 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         $req = Request::createFromEnvironment($env);
         $this->app->getContainer()['request'] = $req;
 
-        return $this->app->run(true);    
+        return $this->app->run(true);
     }
 
-    protected function post($url,$body)
+    protected function post($url, $body)
     {
         $env = Environment::mock([
             'REQUEST_METHOD' => 'POST',
             'REQUEST_URI'    => $url,
-            'CONTENT_TYPE'   => 'application/x-www-form-urlencoded'
+            'CONTENT_TYPE'   => 'application/x-www-form-urlencoded',
         ]);
         $req = Request::createFromEnvironment($env)->withParsedBody($body);
         $this->app->getContainer()['request'] = $req;
-        return $this->app->run(true);  
+
+        return $this->app->run(true);
     }
 
-     protected function patchWithToken($url,$token,$body)
+    protected function patchWithToken($url, $token, $body)
     {
-        $env = Environment::mock(array(
+        $env = Environment::mock([
             'REQUEST_METHOD'         => 'PATCH',
             'REQUEST_URI'            => $url,
             'X-HTTP-Method-Override' => 'PATCH',
-            'HTTP_AUTHORIZATION'     => "Bearer ".$token,
-            'CONTENT_TYPE'           => 'application/x-www-form-urlencoded'
-        ));
+            'HTTP_AUTHORIZATION'     => 'Bearer '.$token,
+            'CONTENT_TYPE'           => 'application/x-www-form-urlencoded',
+        ]);
         $req = Request::createFromEnvironment($env)->withParsedBody($body);
         $this->app->getContainer()['request'] = $req;
-        return $this->app->run(true);  
+
+        return $this->app->run(true);
     }
 
-    protected function postWithToken($url,$token,$body)
+    protected function postWithToken($url, $token, $body)
     {
-        $env = Environment::mock(array(
+        $env = Environment::mock([
             'REQUEST_METHOD'     => 'POST',
             'REQUEST_URI'        => $url,
-            'HTTP_AUTHORIZATION' => "Bearer ".$token,
-            'CONTENT_TYPE'       => 'application/x-www-form-urlencoded'
-        ));
+            'HTTP_AUTHORIZATION' => 'Bearer '.$token,
+            'CONTENT_TYPE'       => 'application/x-www-form-urlencoded',
+        ]);
         $req = Request::createFromEnvironment($env)->withParsedBody($body);
         $this->app->getContainer()['request'] = $req;
-        return $this->app->run(true);  
+
+        return $this->app->run(true);
     }
 
     public function testGetAllEmojisReturnsTwoEmoji()
-
     {
-    
         $response = $this->get('/emojis');
         $data = json_decode($response->getBody(), true);
         $this->assertSame($response->getStatusCode(), 200);
@@ -122,30 +124,28 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
 
     public function testRequestWithLoggedoutTokenReturnsStatusCode401WithMsg()
     {
-        $response = $this->post('/auth/login',['username' => 'tester','password' => 'test']);
+        $response = $this->post('/auth/login', ['username' => 'tester', 'password' => 'test']);
         $result = json_decode($response->getBody(), true);
         $token = $result['token'];
 
-        $this->postWithToken('/auth/logout',$token, []);
+        $this->postWithToken('/auth/logout', $token, []);
 
         $emoji = $this->user->emojis()->first();
         $emojiData = [
         'name'     => 'Auliat',
-        'char'     => '__[:]__'
+        'char'     => '__[:]__',
         ];
         $response = $this->patchWithToken('/emojis/'.$emoji->id, $token, $emojiData);
-        $result = (string)$response->getBody();
+        $result = (string) $response->getBody();
         $this->assertSame($response->getStatusCode(), 401);
-        $this->assertContains("Your token has been logged out.", $result);
+        $this->assertContains('Your token has been logged out.', $result);
     }
 
     protected function getLoginTokenForTestUser()
     {
-
-        $response = $this->post('/auth/login',['username' => 'tester','password' => 'test']);
+        $response = $this->post('/auth/login', ['username' => 'tester', 'password' => 'test']);
         $result = json_decode($response->getBody(), true);
 
         return $result['token'];
     }
-
 }

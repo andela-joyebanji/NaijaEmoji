@@ -66,12 +66,12 @@ class TestDatabasePopulator
     {
         Capsule::beginTransaction();
 
-		try {
-			$user = User::firstOrCreate(['username' => 'tester', 'password' => password_hash('test', PASSWORD_DEFAULT), 'role' => 'member']);
-			$user2 = User::firstOrCreate(['username' => 'tester2', 'password' => password_hash('test', PASSWORD_DEFAULT), 'role' => 'member']);
-			self::createEmojiOwnedBy($user);
-			self::createEmojiOwnedBy($user2);
-			Capsule::commit();
+        try {
+            $user = User::firstOrCreate(['username' => 'tester', 'password' => password_hash('test', PASSWORD_DEFAULT), 'role' => 'member']);
+            $user2 = User::firstOrCreate(['username' => 'tester2', 'password' => password_hash('test', PASSWORD_DEFAULT), 'role' => 'member']);
+            self::createEmojiOwnedBy($user);
+            self::createEmojiOwnedBy($user2);
+            Capsule::commit();
             // all good
         } catch (\Exception $e) {
             Capsule::rollback();

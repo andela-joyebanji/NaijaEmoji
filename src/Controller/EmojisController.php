@@ -4,10 +4,10 @@ namespace Pyjac\NaijaEmoji\Controller;
 
 use Illuminate\Database\Capsule\Manager;
 use Pyjac\NaijaEmoji\Exception\DuplicateEmojiException;
-use Pyjac\NaijaEmoji\Model\Category;
-use Pyjac\NaijaEmoji\Model\Keyword;
-use Pyjac\NaijaEmoji\Model\Emoji;
 use Pyjac\NaijaEmoji\Helpers;
+use Pyjac\NaijaEmoji\Model\Category;
+use Pyjac\NaijaEmoji\Model\Emoji;
+use Pyjac\NaijaEmoji\Model\Keyword;
 
 final class EmojisController
 {
@@ -67,10 +67,10 @@ final class EmojisController
      *
      * @return Slim\Http\Response
      */
-    public function updateEmoji($request, $response, $args) 
+    public function updateEmoji($request, $response, $args)
     {
-        $user = $request->getAttribute("user");
-        $emoji = $user->emojis()->find($args["id"]);
+        $user = $request->getAttribute('user');
+        $emoji = $user->emojis()->find($args['id']);
         if (!$emoji) {
             $emoji = Emoji::find($args['id']);
             if (!$emoji) {
@@ -80,28 +80,28 @@ final class EmojisController
         }
         $emoji->update($request->getParsedBody());
 
-        return $response->withJson(["message" => "Emoji updated successfully."], 200);
+        return $response->withJson(['message' => 'Emoji updated successfully.'], 200);
     }
 
     /**
      * Create a emoji in the database.
-     *     
-     * @param  array                       $emojiData
-     * @param  Pyjac\NaijaEmoji\Model\User $user   
-     *    
+     *
+     * @param array                       $emojiData
+     * @param Pyjac\NaijaEmoji\Model\User $user
+     *
      * @return void
      */
-    private function createEmoji($emojiData, $user) 
+    private function createEmoji($emojiData, $user)
     {
         Manager::transaction(function () use ($emojiData, $user) {
-            $category = Category::firstOrCreate(['name' => $emojiData["category"]]);
+            $category = Category::firstOrCreate(['name' => $emojiData['category']]);
             $emoji = new Emoji();
-            $emoji->name = $emojiData["name"];
-            $emoji->char = $emojiData["char"];
+            $emoji->name = $emojiData['name'];
+            $emoji->char = $emojiData['char'];
             $emoji->category_id = $category->id;
             $user->emojis()->save($emoji);
             $keywords = [];
-            foreach ($emojiData["keywords"] as $key => $keyword) {
+            foreach ($emojiData['keywords'] as $key => $keyword) {
                 $keyword = trim($keyword);
                 //Skip empty keywords
                 if (!$keyword) {
@@ -123,19 +123,19 @@ final class EmojisController
      *
      * @return Slim\Http\Response
      */
-    public function create($request, $response, $args) 
+    public function create($request, $response, $args)
     {
         $emojiData = $request->getParsedBody();
         if (!$emojiData || !$this->requiredEmojiDataAreProvided($emojiData)) {
-            throw new \UnexpectedValueException("The supplied emoji data is not formatted correctly.");
+            throw new \UnexpectedValueException('The supplied emoji data is not formatted correctly.');
         }
-        if (Emoji::where("name",$emojiData["name"])->first()) {
-                throw new DuplicateEmojiException("The emoji name already exist.");    
+        if (Emoji::where('name', $emojiData['name'])->first()) {
+            throw new DuplicateEmojiException('The emoji name already exist.');
         }
-        $user = $request->getAttribute("user");
+        $user = $request->getAttribute('user');
         $this->createEmoji($emojiData, $user);
 
-        return $response->withJson(["message" => "Emoji created successfully."], 201);
+        return $response->withJson(['message' => 'Emoji created successfully.'], 201);
     }
 
     /**
@@ -147,27 +147,27 @@ final class EmojisController
      *
      * @return Slim\Http\Response
      */
-    public function deleteEmoji($request, $response, $args) 
+    public function deleteEmoji($request, $response, $args)
     {
-        $user = $request->getAttribute("user");
-        $emoji = $user->emojis()->find($args["id"]);
+        $user = $request->getAttribute('user');
+        $emoji = $user->emojis()->find($args['id']);
         if (!$emoji) {
             throw new \DomainException("You're not allowed to delete an emoji that you did not create.");
         }
         $emoji->delete();
 
-        return $response->withJson(["message" => "Emoji successfully deleted."], 200);
+        return $response->withJson(['message' => 'Emoji successfully deleted.'], 200);
     }
 
     private function requiredEmojiDataAreProvided($emojiData)
     {
-        $requiredStrings = ["name", "char", "category"];
+        $requiredStrings = ['name', 'char', 'category'];
         if (!Helpers::keysExistAndNotEmptyString($requiredStrings, $emojiData)) {
             return false;
         }
-        if (empty($emojiData["keywords"]) 
-                        || !is_array($emojiData["keywords"])) {
-                return false;
+        if (empty($emojiData['keywords'])
+                        || !is_array($emojiData['keywords'])) {
+            return false;
         }
 
         return true;

@@ -7,7 +7,7 @@ require_once 'NaijaEmojiApiTest.php';
 
 class NaijaEmojiApiLogoutTest extends NaijaEmojiApiTest
 {
-	public function testLogoutReturnsStatusCode400WithMsgWhenAuthorizationHeaderIsSetButTokenIsNotPresent()
+    public function testLogoutReturnsStatusCode400WithMsgWhenAuthorizationHeaderIsSetButTokenIsNotPresent()
     {
         $env = Environment::mock([
             'REQUEST_METHOD'     => 'POST',
@@ -25,8 +25,7 @@ class NaijaEmojiApiLogoutTest extends NaijaEmojiApiTest
 
     public function testLogoutReturnsStatusCode400WithMsgWhenInvalidTokenIsPassed()
     {
-
-        $response = $this->postWithToken('/auth/logout',"lblkbbbvvgjh", []);
+        $response = $this->postWithToken('/auth/logout', 'lblkbbbvvgjh', []);
         $result = json_decode($response->getBody(), true);
         $this->assertEquals($result['message'], 'Wrong number of segments');
         $this->assertSame($response->getStatusCode(), 400);
@@ -35,19 +34,17 @@ class NaijaEmojiApiLogoutTest extends NaijaEmojiApiTest
     public function testLogoutReturnsStatusCode200WithMsgWhenValidTokenIsPassed()
     {
         $token = $this->getLoginTokenForTestUser();
-        $response = $this->postWithToken('/auth/logout',$token, []);
-        $result = (string)$response->getBody();
-        $this->assertContains('Logout Successful',$result);
+        $response = $this->postWithToken('/auth/logout', $token, []);
+        $result = (string) $response->getBody();
+        $this->assertContains('Logout Successful', $result);
         $this->assertSame($response->getStatusCode(), 200);
     }
 
     public function testLogoutReturnsStatusCode400WithMsgWhenAuthorizationHeaderIsNotSet()
     {
-
-        $response = $this->post('/auth/logout',[]);
+        $response = $this->post('/auth/logout', []);
         $result = json_decode($response->getBody(), true);
         $this->assertEquals($result['message'], 'Token not provided');
         $this->assertSame($response->getStatusCode(), 400);
     }
-
 }

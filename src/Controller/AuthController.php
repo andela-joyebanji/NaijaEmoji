@@ -36,8 +36,9 @@ final class AuthController
 
     /**
      * Generate a token for user with passed Id.
-     * @param  int $userId 
-     *         
+     *
+     * @param int $userId
+     *
      * @return string
      */
     private function generateToken($userId)
@@ -91,23 +92,23 @@ final class AuthController
 
         User::firstOrCreate(
                 [
-                    'username' => $userData['username'], 
+                    'username' => $userData['username'],
                     'password' => password_hash($userData['password'], PASSWORD_DEFAULT),
-                    'role'     => 'member'
+                    'role'     => 'member',
                 ]);
-       
+
         return $response->withJson(['message' => 'User successfully created.'], 201);
     }
 
     /**
      * Validate user data are correct.
-     *     
-     * @param  array $userData
-     * 
+     *
+     * @param array $userData
+     *
      * @return bool
      */
     private function validateUserData($userData)
     {
-        return (!$userData || !Helpers::keysExistAndNotEmptyString(['username', 'password'], $userData));
+        return !$userData || !Helpers::keysExistAndNotEmptyString(['username', 'password'], $userData);
     }
 }

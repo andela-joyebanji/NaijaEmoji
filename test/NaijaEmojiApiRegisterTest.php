@@ -1,13 +1,11 @@
 <?php
 
-use Slim\Http\Environment;
-use Slim\Http\Request;
 
 require_once 'NaijaEmojiApiTest.php';
 
 class NaijaEmojiApiRegisterTest extends NaijaEmojiApiTest
 {
-	 public function testRegisterReturnsStatusCode400WithMsgWhenOnlyUsernameIsPassed()
+    public function testRegisterReturnsStatusCode400WithMsgWhenOnlyUsernameIsPassed()
     {
         $response = $this->post('/auth/register', ['username' => 'tester']);
         $result = json_decode($response->getBody(), true);
@@ -30,7 +28,6 @@ class NaijaEmojiApiRegisterTest extends NaijaEmojiApiTest
 
         $this->assertEquals($result['message'], $this->registerErrorMessage);
         $this->assertSame($response->getStatusCode(), 400);
-
     }
 
     public function testRegisterReturnsStatusCode400WithMsgWhenOnlyUsernameIsPassedWithEmptyString()
@@ -49,10 +46,9 @@ class NaijaEmojiApiRegisterTest extends NaijaEmojiApiTest
         $this->assertSame($response->getStatusCode(), 400);
     }
 
-
     public function testRegisterReturnsStatusCode400WithMsgWhenUsernameAndPasswordIsPassedWithEmptyStrings()
     {
-        $response = $this->post('/auth/register', ['username' => ' ','password' => ' ']);
+        $response = $this->post('/auth/register', ['username' => ' ', 'password' => ' ']);
         $result = json_decode($response->getBody(), true);
         $this->assertEquals($result['message'], $this->registerErrorMessage);
         $this->assertSame($response->getStatusCode(), 400);
@@ -60,8 +56,7 @@ class NaijaEmojiApiRegisterTest extends NaijaEmojiApiTest
 
     public function testRegisterReturnsStatusCode409WithMsgWhenAlreadyExistingUsernameWithPasswordIsPassed()
     {
-
-        $response = $this->post('/auth/register',['username' => 'tester','password' => 'pyjac']);
+        $response = $this->post('/auth/register', ['username' => 'tester', 'password' => 'pyjac']);
 
         $result = json_decode($response->getBody(), true);
         $this->assertEquals($result['message'], 'Username already exist.');
@@ -70,11 +65,9 @@ class NaijaEmojiApiRegisterTest extends NaijaEmojiApiTest
 
     public function testRegisterReturnsStatusCode201WithMsgWhenUniqueUsernameAndPasswordIsPassed()
     {
-
-        $response = $this->post('/auth/register',['username' => 'pyjac','password' => 'pyjac']);
+        $response = $this->post('/auth/register', ['username' => 'pyjac', 'password' => 'pyjac']);
         $result = json_decode($response->getBody(), true);
         $this->assertEquals($result['message'], 'User successfully created.');
         $this->assertSame($response->getStatusCode(), 201);
     }
-
 }
