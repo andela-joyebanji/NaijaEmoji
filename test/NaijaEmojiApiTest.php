@@ -106,6 +106,14 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         
     }
 
+    public function testErrorHandlerReturn401WhenExpiredExceptionThrow()
+    {
+        $handle = $this->app->getContainer()['errorHandler'];
+        //$response = $handle($this->app->getContainer());
+        $response = $handle(null, new Slim\Http\Response(), new \Firebase\JWT\ExpiredException());
+        $this->assertSame($response->getStatusCode(), 401); 
+    }
+
     protected function getLoginTokenForTestUser()
     {
         $response = $this->post('/auth/login', ['username' => 'tester', 'password' => 'test']);
