@@ -26,13 +26,6 @@ $container['capsule'] = function ($c) {
     return $capsule;
 };
 
-// view renderer
-$container['renderer'] = function ($c) {
-    $settings = $c->get('settings')['renderer'];
-
-    return new Slim\Views\PhpRenderer($settings['template_path']);
-};
-
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];
@@ -56,10 +49,6 @@ $container['errorHandler'] = function ($c) {
             $c->logger->critical($exception->getMessage());
 
             return $response->withJson(['message' => "Sorry, We're having technical difficulties. Our Developers would fix this issue as soon as possible."], 500);
-        }
-
-        if ($exception instanceof \Firebase\JWT\BeforeValidException) {
-            return $response->withJson(['message' => $exception->getMessage()], 401);
         }
 
         // Refernece: http://stackoverflow.com/questions/3825990/http-response-code-for-post-when-resource-already-exists
