@@ -129,25 +129,6 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
         $this->assertSame($data['message'], 'The requested Emoji is not found.');
     }
 
-    public function testRequestWithExpiredTokenReturnsStatusCode401WithMsg()
-    {
-        $expiredToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0NTg4MDU1NTcsImp0aSI6IlwvRm5BZndNbnk0czhBNEpSXC9oNENtUm9menJUQUIxakdKamJFXC9KN0ZmQXM9IiwibmJmIjoxNDU4ODA1NTU3LCJleHAiOjE0NTYyMTM1NTcsImRhdGEiOnsidXNlcklkIjoxfX0.qMEBQFG8qKHnr8KB3LfcEcKRklp5500SWisM1y4jYTM";
-
-        $emojiData = [
-        'name'     => 'Auliat',
-        'char'     => '__[:]__',
-        'category' => 'aaa',
-        'keywords' => ['lol', 'hmmm'],
-        ];
-        $token = $this->getLoginTokenForTestUser();
-        $response = $this->postWithToken('/emojis', $expiredToken, $emojiData);
-        $result = (string) $response->getBody();
-        $this->assertSame($response->getStatusCode(), 401);
-        $this->assertContains('The provided token as expired.', $result);
-    }
-
-    
-
     public function testRequestWithLoggedoutTokenReturnsStatusCode401WithMsg()
     {
         $response = $this->post('/auth/login', ['username' => 'tester', 'password' => 'test']);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1458805874">
-  <project timestamp="1458805874">
+<coverage generated="1458806365">
+  <project timestamp="1458806365">
     <package name="Pyjac\NaijaEmoji">
       <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/App.php">
         <class name="App" namespace="Pyjac\NaijaEmoji">
