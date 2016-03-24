@@ -130,7 +130,7 @@ final class EmojisController
             throw new \UnexpectedValueException('The supplied emoji data is not formatted correctly.');
         }
         if (Emoji::where('name', $emojiData['name'])->first()) {
-            throw new DuplicateEmojiException('The emoji name already exist.');
+            throw new DuplicateEmojiException();
         }
         $user = $request->getAttribute('user');
         $this->createEmoji($emojiData, $user);

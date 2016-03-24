@@ -4,8 +4,8 @@ namespace Pyjac\NaijaEmoji\Exception;
 
 class DuplicateEmojiException extends \Exception
 {
-    public function __construt($message)
+    public function __construct()
     {
-        parent::__construct($message);
+        parent::__construct('The emoji name already exist.');
     }
 }

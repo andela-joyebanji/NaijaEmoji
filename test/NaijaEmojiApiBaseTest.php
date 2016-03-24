@@ -58,4 +58,29 @@ class NaijaEmojiApiBaseTest extends NaijaEmojiApiTest
         $this->assertSame($response->getStatusCode(), 401);
         $this->assertContains('Your token has been logged out.', $result);
     }
+
+    public function testServerErrorLogs()
+    {
+        $handle = $this->app->getContainer()['errorHandler'];
+        $response = $handle(null, new Slim\Http\Response(), new Exception());
+        $this->assertSame($response->getStatusCode(), 500);
+
+        $response = $handle(null, new Slim\Http\Response(), new PDOException());
+        $this->assertSame($response->getStatusCode(), 500);
+        
+    }
+
+    public function testErrorHandlerReturnStatusCode401WhenExpiredExceptionThrown()
+    {
+        $handle = $this->app->getContainer()['errorHandler'];
+        $response = $handle(null, new Slim\Http\Response(), new \Firebase\JWT\ExpiredException());
+        $this->assertSame($response->getStatusCode(), 401); 
+    }
+
+    public function testErrorHandlerReturnStatusCode409WhenDuplicateEmojiExceptionThrown()
+    {
+        $handle = $this->app->getContainer()['errorHandler'];
+        $response = $handle(null, new Slim\Http\Response(), new Pyjac\NaijaEmoji\Exception\DuplicateEmojiException());
+        $this->assertSame($response->getStatusCode(), 409); 
+    }
 }
