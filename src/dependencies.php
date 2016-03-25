@@ -60,11 +60,10 @@ $container['errorHandler'] = function ($c) {
     };
 };
 
-if (getenv('APP_ENV') !== 'production') {
-    
-    if ($envFilePath === "") {
-        $envFilePath = __DIR__.'/../';
-    }
-    $dotenv = new \Dotenv\Dotenv($envFilePath);
-    $dotenv->overload();
+
+if ($envFilePath === "") {
+    $envFilePath = __DIR__.'/../';
 }
+$dotenv = new \Dotenv\Dotenv($envFilePath);
+$dotenv->overload();
+

@@ -31,10 +31,7 @@ class EnvFileReadingTest extends PHPUnit_Framework_TestCase
 
     public function testEnvLoaded()
     {
-        $previousValue = getenv('APP_ENV');
-        putenv('APP_ENV');
         (new App($this->root->url()))->get();
-        putenv("APP_ENV=$previousValue");
         $this->assertTrue(true);   
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1458949484">
-  <project timestamp="1458949484">
+<coverage generated="1458950184">
+  <project timestamp="1458950184">
     <package name="Pyjac\NaijaEmoji">
       <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/App.php">
         <class name="App" namespace="Pyjac\NaijaEmoji">
@@ -396,14 +396,12 @@
       <line num="58" type="stmt" count="1"/>
       <line num="59" type="stmt" count="1"/>
       <line num="60" type="stmt" count="14"/>
-      <line num="63" type="stmt" count="50"/>
-      <line num="65" type="stmt" count="50"/>
+      <line num="64" type="stmt" count="50"/>
+      <line num="65" type="stmt" count="49"/>
       <line num="66" type="stmt" count="49"/>
-      <line num="67" type="stmt" count="49"/>
+      <line num="67" type="stmt" count="50"/>
       <line num="68" type="stmt" count="50"/>
-      <line num="69" type="stmt" count="50"/>
-      <line num="70" type="stmt" count="50"/>
-      <metrics loc="70" ncloc="60" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="34" coveredstatements="34" elements="34" coveredelements="34"/>
+      <metrics loc="69" ncloc="59" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="32" coveredstatements="32" elements="32" coveredelements="32"/>
     </file>
     <file name="/Users/bendozy/Code/Checkpoints/NaijaEmoji/src/routes.php">
       <line num="5" type="stmt" count="50"/>
@@ -433,6 +431,6 @@
       <line num="17" type="stmt" count="50"/>
       <metrics loc="17" ncloc="11" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="9" elements="9" coveredelements="9"/>
     </file>
-    <metrics files="17" loc="926" ncloc="667" classes="14" methods="45" coveredmethods="45" conditionals="0" coveredconditionals="0" statements="282" coveredstatements="282" elements="327" coveredelements="327"/>
+    <metrics files="17" loc="925" ncloc="666" classes="14" methods="45" coveredmethods="45" conditionals="0" coveredconditionals="0" statements="280" coveredstatements="280" elements="325" coveredelements="325"/>
   </project>
 </coverage>
