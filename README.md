@@ -56,6 +56,15 @@ To get an emoji, you send a `GET` request to `/emoji/{id of emoji}` route like s
 
 ![Get Emoji](screenshots/get_emoji.png "Get Emoji")
 
+## Search for Emojis
+You can search for emojis by the emoji's `name`, `category` it belongs to and `keyword` associated to it. You can also get all emojis `created by` a particular user.  
+* `/emojis/name/{emoji name}` to search for emoji by its `name`
+* `/emojis/category/{category name}` to search for emojis that belongs to a `category`
+* `/emojis/keyword/{keyword name}` to search for emojis that belongs to a `keyword`
+* `/emojis/createdBy/{creator name}` to search for emojis created by a user
+
+![Search Emoji](screenshots/search_emoji.png "Search Emoji")
+
 ## Create Emoji
 To create an emoji, you send a `POST` request, with your authentication token, to `/emojis` route with emoji's information like so:
 
