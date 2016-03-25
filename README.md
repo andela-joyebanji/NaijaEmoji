@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/andela-joyebanji/NaijaEmoji.svg?branch=develop)](https://travis-ci.org/andela-joyebanji/NaijaEmoji) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/andela-joyebanji/NaijaEmoji/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/andela-joyebanji/NaijaEmoji/?branch=develop) [![Coverage Status](https://coveralls.io/repos/github/andela-joyebanji/NaijaEmoji/badge.svg?branch=develop)](https://coveralls.io/github/andela-joyebanji/NaijaEmoji?branch=develop)
 
 ### NaijaEmoji
-[NaijaEmoji](http://naijaemoji.readthedocs.org/en/latest/) is a simple Restful API using Slim for NaijaEmoji Service.
+[NaijaEmoji](http://naijaemoji.readthedocs.org/en/latest/) is a simple Restful API using Slim for NaijaEmoji Service. It is an implementation of the Checkpoint 3 requirement for PHP developers at [Andela](http://andela.com).
 
 ##Usage
 Clone this repository like so:
