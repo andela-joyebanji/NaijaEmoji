@@ -22,7 +22,7 @@ final class EmojisController
      */
     public function getEmojis($request, $response, $args)
     {
-        $result = Emoji::with('category', 'keywords', 'created_by')->get();
+        $result = Emoji::withRelations()->get();
         $this->formatEmojiDataForClient($result);
 
         return $response->withJson($result);
@@ -39,7 +39,7 @@ final class EmojisController
      */
     public function getEmoji($request, $response, $args)
     {
-        $result = Emoji::with('category', 'keywords', 'created_by')->find($args['id']);
+        $result = Emoji::withRelations()->find($args['id']);
         if (!$result) {
             return $response->withJson(['message' => 'The requested Emoji is not found.'], 404);
         }
@@ -169,9 +169,16 @@ final class EmojisController
         return $response->withJson($result);
     }
 
+    /**
+     * Call appropriate emoji scope method for search.
+     * 
+     * @param  string $field       
+     * @param  string $searchValue
+     * 
+     * @return Illuminate\Database\Eloquent\Collection            
+     */
     private function searchEmojiBy($field, $searchValue)
     {
-        $result = [];
         if ($field === "name") {
             $result = Emoji::searchByName($searchValue)->get();
         } elseif ($field === "keyword") {
@@ -187,7 +194,7 @@ final class EmojisController
     /**
      * Format emoji information return by Eloquent for API format.
      * 
-     * @param  array $emojiData
+     * @param  Illuminate\Database\Eloquent\Collection $emojiData
      *  
      * @return void
      */
