@@ -4,7 +4,7 @@ NaijaEmoji
 ==========
 
 `NaijaEmoji <http://naijaemoji.readthedocs.org/en/latest/>`__ is a
-simple Restful API using Slim for NaijaEmoji Service.
+simple Restful API using Slim for NaijaEmoji Service. It is an implementation of the Checkpoint 3 requirement for PHP developers at `Andela <http://andela.com>`__.
 
 Usage
 =====
