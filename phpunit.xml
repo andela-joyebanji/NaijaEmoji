@@ -4,7 +4,7 @@
 		 convertNoticesToExceptions="true"
 		 convertWarningToExceptions="true"
 		 processIsolation="false"
-		 stopOnFailure="false"
+		 stopOnFailure="true"
 		 syntax="false"
 >
 	<testsuites>

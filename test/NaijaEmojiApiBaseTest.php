@@ -1,5 +1,6 @@
 <?php
 
+use Pyjac\NaijaEmoji\Model\Keyword;
 require_once 'NaijaEmojiApiTest.php';
 
 
@@ -7,11 +8,12 @@ class NaijaEmojiApiBaseTest extends NaijaEmojiApiTest
 {
     public function testGetAllEmojisReturnsTwoEmoji()
     {
+        $emoji = $this->user->emojis()->first();
         $response = $this->get('/emojis');
         $data = json_decode($response->getBody(), true);
         $this->assertSame($response->getStatusCode(), 200);
-        $this->assertSame($data[0]['name'], 'Suliat');
-        $this->assertSame($data[0]['category'], 'sulia');
+        $this->assertSame($data[0]['name'], $emoji->name);
+        $this->assertSame($data[0]['category'], $emoji->category->name);
         $this->assertSame(count($data), 2);
     }
 
@@ -68,6 +70,66 @@ class NaijaEmojiApiBaseTest extends NaijaEmojiApiTest
         $response = $handle(null, new Slim\Http\Response(), new PDOException());
         $this->assertSame($response->getStatusCode(), 500);
         
+    }
+
+    public function testSearchByName()
+    {
+        $name = 'Suliat';
+        $response = $this->get("/emojis/name/$name");
+        $data = json_decode($response->getBody(), true);
+        $this->assertSame($response->getStatusCode(), 200);
+        $this->assertSame($data[0]['name'], $name);
+        $this->assertSame(count($data), 2);
+
+    }
+
+    public function testSearchByKeywordName()
+    {
+        $name = 'suzan';
+        $response = $this->get("/emojis/keyword/$name");
+        $data = json_decode($response->getBody(), true);
+        $this->assertSame($response->getStatusCode(), 200);
+        $this->assertArrayHasKey($name, array_flip($data[0]['keywords']));
+        $this->assertSame(count($data), 2);
+
+        $name = 'suzzy';
+        $response = $this->get("/emojis/keyword/$name");
+        $data = json_decode($response->getBody(), true);
+        $this->assertSame($response->getStatusCode(), 200);
+        $this->assertArrayHasKey($name, array_flip($data[0]['keywords']));
+        $this->assertSame(count($data), 2);
+    }
+
+    public function testSearchByCategory()
+    {
+        $name = 'sulia';
+        $response = $this->get("/emojis/category/$name");
+        $data = json_decode($response->getBody(), true);
+        $this->assertSame($response->getStatusCode(), 200);
+        $this->assertSame($name, $data[0]['category']);
+        $this->assertSame(count($data), 2);
+
+        $name = 'sule';
+        $response = $this->get("/emojis/category/$name");
+        $data = json_decode($response->getBody(), true);
+        $this->assertSame($response->getStatusCode(), 200);
+        $this->assertSame(count($data), 0);
+    }
+
+    public function testSearchByCreator()
+    {
+        $name = 'tester';
+        $response = $this->get("/emojis/createdBy/$name");
+        $data = json_decode($response->getBody(), true);
+        $this->assertSame($response->getStatusCode(), 200);
+        $this->assertSame($name, $data[0]['created_by']);
+        $this->assertSame(count($data), 4);
+
+        $name = 'tester2';
+        $response = $this->get("/emojis/createdBy/$name");
+        $data = (string) $response->getBody();
+        $this->assertContains($name, $data);
+        $this->assertSame($response->getStatusCode(), 200);
     }
 
     public function testErrorHandlerReturnStatusCode401WhenExpiredExceptionThrown()

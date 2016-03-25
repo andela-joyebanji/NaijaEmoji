@@ -23,14 +23,7 @@ final class EmojisController
     public function getEmojis($request, $response, $args)
     {
         $result = Emoji::with('category', 'keywords', 'created_by')->get();
-        $result = $result->toArray();
-
-        foreach ($result as $key => &$res) {
-            $res['keywords'] = array_map(function ($arr) { return $arr['name']; }, $res['keywords']);
-
-            $res['category'] = $res['category']['name'];
-            $res['created_by'] = $res['created_by']['username'];
-        }
+        $this->formatEmojiDataForClient($result);
 
         return $response->withJson($result);
     }
@@ -157,6 +150,57 @@ final class EmojisController
         $emoji->delete();
 
         return $response->withJson(['message' => 'Emoji successfully deleted.'], 200);
+    }
+
+    /**
+     * Search for emojis.
+     *
+     * @param Slim\Http\Request  $request
+     * @param Slim\Http\Response $response
+     * @param array              $args
+     *
+     * @return Slim\Http\Response
+     */
+    public function searchEmoji($request, $response, $args)
+    {
+        $result = $this->searchEmojiBy($args['field'], $args['search']);
+        $this->formatEmojiDataForClient($result);
+
+        return $response->withJson($result);
+    }
+
+    private function searchEmojiBy($field, $searchValue)
+    {
+        $result = [];
+        if ($field === "name") {
+            $result = Emoji::searchByName($searchValue)->get();
+        } elseif ($field === "keyword") {
+            $result = Emoji::searchByKeywordName($searchValue)->get();
+        } elseif ($field === "createdBy") {
+            $result = Emoji::searchByCreatorName($searchValue)->get();
+        } else {
+            $result = Emoji::searchByCategoryName($searchValue)->get();
+        }
+
+        return $result;     
+    }
+    /**
+     * Format emoji information return by Eloquent for API format.
+     * 
+     * @param  array $emojiData
+     *  
+     * @return void
+     */
+    private function formatEmojiDataForClient(&$emojiData)
+    {
+        $emojiData = $emojiData->toArray();
+
+        foreach ($emojiData as $key => &$res) {
+            $res['keywords'] = array_map(function ($arr) { return $arr['name']; }, $res['keywords']);
+
+            $res['category'] = $res['category']['name'];
+            $res['created_by'] = $res['created_by']['username'];
+        }
     }
 
     private function requiredEmojiDataAreProvided($emojiData)

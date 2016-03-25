@@ -4,6 +4,7 @@
 
 $app->get('/emojis', "Pyjac\NaijaEmoji\Controller\EmojisController:getEmojis");
 $app->get('/emojis/{id}', "Pyjac\NaijaEmoji\Controller\EmojisController:getEmoji");
+$app->get('/emojis/{field:category|name|keyword|createdBy}/{search}', "Pyjac\NaijaEmoji\Controller\EmojisController:searchEmoji");
 
 $app->group('/emojis', function () {
 

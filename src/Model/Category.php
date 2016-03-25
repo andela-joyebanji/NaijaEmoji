@@ -10,4 +10,9 @@ class Category extends Eloquent
 
     protected $fillable = ['name'];
 
+    public function emojis()
+    {
+    	return $this->hasMany('Pyjac\NaijaEmoji\Model\Emoji');
+    }
+
 }

@@ -45,11 +45,6 @@ $container['errorHandler'] = function ($c) {
         if ($exception instanceof \Firebase\JWT\ExpiredException) {
             return $response->withJson(['message' => 'The provided token as expired.'], 401);
         }
-        if ($exception instanceof \PDOException) {
-            $c->logger->critical($exception->getMessage());
-
-            return $response->withJson(['message' => "Sorry, We're having technical difficulties. Our Developers would fix this issue as soon as possible."], 500);
-        }
 
         // Refernece: http://stackoverflow.com/questions/3825990/http-response-code-for-post-when-resource-already-exists
         if ($exception instanceof Pyjac\NaijaEmoji\Exception\DuplicateEmojiException) {
@@ -60,7 +55,8 @@ $container['errorHandler'] = function ($c) {
             return $response->withJson(['message' => $exception->getMessage()], 400);
         }
 
-        return $response->withJson(['message' => $exception->getMessage().' Something went wrong!'], 500);
+        $c->logger->critical($exception->getMessage());
+        return $response->withJson(['message' => "Sorry, We're having technical difficulties processing your request. Our Developers would fix this issue as soon as possible."], 500);
     };
 };
 
