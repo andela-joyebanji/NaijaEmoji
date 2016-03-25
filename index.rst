@@ -4,7 +4,9 @@ NaijaEmoji
 ==========
 
 `NaijaEmoji <http://naijaemoji.readthedocs.org/en/latest/>`__ is a
-simple Restful API using Slim for NaijaEmoji Service.
+simple Restful API using Slim for NaijaEmoji Service. It is an
+implementation of the Checkpoint 3 requirement for PHP developers at
+`Andela <http://andela.com>`__.
 
 Usage
 =====
@@ -87,6 +89,24 @@ route like so:
    :alt: Get Emoji
 
    Get Emoji
+
+Search for Emojis
+=================
+
+| You can search for emojis by the emoji's ``name``, ``category`` it
+  belongs to and ``keyword`` associated to it. You can also get all
+  emojis ``created by`` a particular user.
+| \* ``/emojis/name/{emoji name}`` to search for emoji by its ``name``
+  \* ``/emojis/category/{category name}`` to search for emojis that
+  belongs to a ``category`` \* ``/emojis/keyword/{keyword name}`` to
+  search for emojis that belongs to a ``keyword`` \*
+  ``/emojis/createdBy/{creator name}`` to search for emojis created by a
+  user
+
+.. figure:: screenshots/search_emoji.png
+   :alt: Search Emoji
+
+   Search Emoji
 
 Create Emoji
 ============
