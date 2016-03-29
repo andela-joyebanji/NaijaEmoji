@@ -25,8 +25,13 @@ You need set your environment variables to define your database parameters or re
     PASSWORD = password
     DBNAME   = YourDatabase
     PORT     = port
+    
+Finally, boot-up the API service with PHP's Built-in web server:
+```
+  php -S localhost:8080 -t public/
+```
 
-All examples are shown in POSTMAN.
+All examples are shown in [POSTMAN](http://www.getpostman.com/).
 
 ## Registration
 

@@ -15,6 +15,6 @@ date_default_timezone_set('UTC');
 require __DIR__.'/../vendor/autoload.php';
 
 // Run app
-$app = (new Pyjac\NaijaEmoji\App())->get();
+$app = (new Pyjac\NaijaEmoji\App(__DIR__.'/../'))->get();
 
 $app->run();
