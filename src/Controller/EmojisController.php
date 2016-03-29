@@ -171,31 +171,32 @@ final class EmojisController
 
     /**
      * Call appropriate emoji scope method for search.
-     * 
-     * @param  string $field       
-     * @param  string $searchValue
-     * 
-     * @return Illuminate\Database\Eloquent\Collection            
+     *
+     * @param string $field
+     * @param string $searchValue
+     *
+     * @return Illuminate\Database\Eloquent\Collection
      */
     private function searchEmojiBy($field, $searchValue)
     {
-        if ($field === "name") {
+        if ($field === 'name') {
             $result = Emoji::searchByName($searchValue)->get();
-        } elseif ($field === "keyword") {
+        } elseif ($field === 'keyword') {
             $result = Emoji::searchByKeywordName($searchValue)->get();
-        } elseif ($field === "createdBy") {
+        } elseif ($field === 'createdBy') {
             $result = Emoji::searchByCreatorName($searchValue)->get();
         } else {
             $result = Emoji::searchByCategoryName($searchValue)->get();
         }
 
-        return $result;     
+        return $result;
     }
+
     /**
      * Format emoji information return by Eloquent for API format.
-     * 
-     * @param  Illuminate\Database\Eloquent\Collection $emojiData
-     *  
+     *
+     * @param Illuminate\Database\Eloquent\Collection $emojiData
+     *
      * @return void
      */
     private function formatEmojiDataForClient(&$emojiData)
