@@ -38,7 +38,8 @@ class AuthMiddleware
     /**
      * Get user token from request header.
      *
-     * @param \Psr\Http\Message\ServerRequestInterface $request  PSR7 request
+     * @param \Psr\Http\Message\ServerRequestInterface $request PSR7 request
+     *
      * @throws \UnexpectedValueException
      *
      * @return string
@@ -52,6 +53,6 @@ class AuthMiddleware
             throw new \UnexpectedValueException('Token not provided');
         }
 
-        return $userJwt; 
+        return $userJwt;
     }
 }

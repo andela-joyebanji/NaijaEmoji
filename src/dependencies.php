@@ -56,10 +56,10 @@ $container['errorHandler'] = function ($c) {
         }
 
         $c->logger->critical($exception->getMessage());
+
         return $response->withJson(['message' => "Sorry, We're having technical difficulties processing your request. Our Developers would fix this issue as soon as possible."], 500);
     };
 };
 
 $dotenv = new \Dotenv\Dotenv($envFilePath);
 $dotenv->overload();
-

@@ -52,10 +52,10 @@ class Emoji extends Eloquent
      */
     public function scopeWithRelations($query)
     {
-        return $query->with('category', 'keywords', 'created_by');   
+        return $query->with('category', 'keywords', 'created_by');
     }
 
-     /**
+    /**
      * Scope a query to search by emoji name.
      *
      * @return \Illuminate\Database\Eloquent\Builder
@@ -74,7 +74,6 @@ class Emoji extends Eloquent
     {
         return $query->withRelations()
                      ->joinTableLikeNameColumn('keywords', $keywordName);
-                     
     }
 
     /**
@@ -104,9 +103,9 @@ class Emoji extends Eloquent
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeJoinTableLikeNameColumn($query, $tableName, $name, $nameColumn='name')
+    public function scopeJoinTableLikeNameColumn($query, $tableName, $name, $nameColumn = 'name')
     {
-        return $query->join($tableName, 
+        return $query->join($tableName,
                             function ($join) use ($tableName, $name, $nameColumn) {
                                 $join->where("$tableName.$nameColumn", 'like', "%$name%");
                             }

@@ -1,8 +1,8 @@
 <?php
 
 use Pyjac\NaijaEmoji\Model\Keyword;
-require_once 'NaijaEmojiApiTest.php';
 
+require_once 'NaijaEmojiApiTest.php';
 
 class NaijaEmojiApiBaseTest extends NaijaEmojiApiTest
 {
@@ -31,7 +31,7 @@ class NaijaEmojiApiBaseTest extends NaijaEmojiApiTest
     {
         $response = $this->get('/jsdjsdf');
         $data = json_decode($response->getBody(), true);
-        $this->assertSame($response->getStatusCode(), 404);   
+        $this->assertSame($response->getStatusCode(), 404);
     }
 
     public function testGetEmojiReturnsStatusCodeOf404WithMsgWhenEmojiWithPassedIdNotFound()
@@ -69,7 +69,6 @@ class NaijaEmojiApiBaseTest extends NaijaEmojiApiTest
 
         $response = $handle(null, new Slim\Http\Response(), new PDOException());
         $this->assertSame($response->getStatusCode(), 500);
-        
     }
 
     public function testSearchByName()
@@ -80,7 +79,6 @@ class NaijaEmojiApiBaseTest extends NaijaEmojiApiTest
         $this->assertSame($response->getStatusCode(), 200);
         $this->assertSame($data[0]['name'], $name);
         $this->assertSame(count($data), 2);
-
     }
 
     public function testSearchByKeywordName()
@@ -136,13 +134,13 @@ class NaijaEmojiApiBaseTest extends NaijaEmojiApiTest
     {
         $handle = $this->app->getContainer()['errorHandler'];
         $response = $handle(null, new Slim\Http\Response(), new \Firebase\JWT\ExpiredException());
-        $this->assertSame($response->getStatusCode(), 401); 
+        $this->assertSame($response->getStatusCode(), 401);
     }
 
     public function testErrorHandlerReturnStatusCode409WhenDuplicateEmojiExceptionThrown()
     {
         $handle = $this->app->getContainer()['errorHandler'];
         $response = $handle(null, new Slim\Http\Response(), new Pyjac\NaijaEmoji\Exception\DuplicateEmojiException());
-        $this->assertSame($response->getStatusCode(), 409); 
+        $this->assertSame($response->getStatusCode(), 409);
     }
 }

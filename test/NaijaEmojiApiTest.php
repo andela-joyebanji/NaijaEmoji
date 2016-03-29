@@ -1,13 +1,11 @@
 <?php
 
+use org\bovigo\vfs\vfsStream;
 use Pyjac\NaijaEmoji\App;
-use Pyjac\NaijaEmoji\Model\Category;
 use Pyjac\NaijaEmoji\Model\Emoji;
 use Pyjac\NaijaEmoji\Model\User;
-use org\bovigo\vfs\vfsStream;
 use Slim\Http\Environment;
 use Slim\Http\Request;
-
 
 require_once 'TestDatabasePopulator.php';
 
@@ -19,12 +17,11 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
     protected $updateSuccessMessage;
     protected $envRootPath;
 
-
     public function setUp()
     {
         $root = vfsStream::setup();
         $envFilePath = vfsStream::newFile('.env')->at($root);
-        $envFilePath->setContent("
+        $envFilePath->setContent('
             APP_SECRET=some#@#$@#@#GAEEF!
             JWT_ALGORITHM=HS256
             [Database]
@@ -33,7 +30,7 @@ class NaijaEmojiApiTest extends PHPUnit_Framework_TestCase
             charset=utf8
             collation=utf8_unicode_ci
             database=:memory:
-            ");
+            ');
         $this->app = (new App($root->url()))->get();
         $this->user = TestDatabasePopulator::populate();
         $this->registerErrorMessage = 'Username or Password field not provided.';

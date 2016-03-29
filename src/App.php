@@ -11,7 +11,7 @@ class App
      */
     protected $app;
 
-    public function __construct($envFilePath = "")
+    public function __construct($envFilePath = '')
     {
         $settings = require __DIR__.'/../src/settings.php';
         $app = new \Slim\App($settings);
