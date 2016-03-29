@@ -36,7 +36,13 @@ change the below to your local configuration.
     DBNAME   = YourDatabase
     PORT     = port
 
-All examples are shown in POSTMAN.
+Finally, boot-up the API service with PHP's Built-in web server:
+
+::
+
+      php -S localhost:8080 -t public/
+
+All examples are shown in `POSTMAN <http://www.getpostman.com/>`__.
 
 Registration
 ============
