@@ -17,6 +17,12 @@ Change your directory to `NaijaEmoji` directory like so:
     cd NaijaEmoji
 ```
 
+Install package dependencies:
+
+```
+    composer install
+```
+
 You need set your environment variables to define your database parameters or rename `.env.example` file in project to `.env` and change the below to your local configuration.
 
     DRIVER   = sqlite
