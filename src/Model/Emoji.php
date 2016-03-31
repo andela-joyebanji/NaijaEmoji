@@ -73,7 +73,7 @@ class Emoji extends Eloquent
     public function scopeSearchByKeywordName($query, $keywordName)
     {
         return $query->withRelations()
-                     ->joinTableLikeNameColumn('keywords', $keywordName);
+                     ->joinKeywordsTableLikeNameColumn($keywordName);
     }
 
     /**
@@ -84,7 +84,7 @@ class Emoji extends Eloquent
     public function scopeSearchByCategoryName($query, $categoryName)
     {
         return $query->withRelations()
-                     ->joinTableLikeNameColumn('categories', $categoryName);
+                     ->joinTableLikeNameColumn('categories', $categoryName, "category_id");
     }
 
     /**
@@ -95,7 +95,7 @@ class Emoji extends Eloquent
     public function scopeSearchByCreatorName($query, $creatorName)
     {
         return $query->withRelations()
-                     ->joinTableLikeNameColumn('users', $creatorName, 'username');
+                     ->joinTableLikeNameColumn('users', $creatorName, 'created_by', 'username');
     }
 
     /**
@@ -103,11 +103,30 @@ class Emoji extends Eloquent
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeJoinTableLikeNameColumn($query, $tableName, $name, $nameColumn = 'name')
+    public function scopeJoinTableLikeNameColumn($query, $tableName, $name, $idFieldOnEmoji = 'id', $nameColumn = 'name')
     {
         return $query->join($tableName,
-                            function ($join) use ($tableName, $name, $nameColumn) {
+                            function ($join) use ($tableName, $name, $nameColumn, $idFieldOnEmoji) {
+                                $join->on("emojis.$idFieldOnEmoji", '=', "$tableName.id");
                                 $join->where("$tableName.$nameColumn", 'like', "%$name%");
+                            }
+                        )
+                    ->select(Manager::raw('emojis.*'));
+    }
+
+    /**
+     * Scope query to join keyowords table.
+     * 
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeJoinKeywordsTableLikeNameColumn($query, $name)
+    {
+        return $query
+                ->join('emoji_keywords', 'emoji_keywords.emoji_id', '=', 'emojis.id')
+                ->join("keywords",
+                            function ($join) use ($name) {
+                                $join->on('emoji_keywords.keyword_id', '=', 'keywords.id');
+                                $join->where('keywords.name', 'like', "%$name%");
                             }
                         )
                     ->select(Manager::raw('emojis.*'));

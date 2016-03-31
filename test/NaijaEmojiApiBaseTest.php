@@ -121,7 +121,7 @@ class NaijaEmojiApiBaseTest extends NaijaEmojiApiTest
         $data = json_decode($response->getBody(), true);
         $this->assertSame($response->getStatusCode(), 200);
         $this->assertSame($name, $data[0]['created_by']);
-        $this->assertSame(count($data), 4);
+        $this->assertSame(count($data), 2);
 
         $name = 'tester2';
         $response = $this->get("/emojis/createdBy/$name");

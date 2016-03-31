@@ -50,7 +50,7 @@ class DatabaseSchema
                 $table->string('name');
                 $table->string('char');
                 $table->integer('category_id');
-                $table->string('created_by');
+                $table->integer('created_by');
                 $table->timestamps();
             });
         }
